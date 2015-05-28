@@ -14,11 +14,10 @@ public class Controller {
 
     public void initialize() {
         for (Node node : this.terrainGroup.getChildren()) {
-            System.out.println("hi");
-            //TerrainView terrain_view = (TerrainView)node;
-            //this.terrainModel = new TerrainModel();
-            //terrain_view.setTerrainModel(this.terrainModel);
-            //terrain_view.update();
+            TerrainView terrain_view = (TerrainView)node;
+            this.terrainModel = new TerrainModel();
+            terrain_view.setTerrainModel(this.terrainModel);
+            terrain_view.update();
         }
     }
 }
