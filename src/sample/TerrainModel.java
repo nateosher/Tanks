@@ -24,14 +24,14 @@ public class TerrainModel {
 
     private void makeTerrain() {
         for (int i=0; i<1200; i++) {
-            this.terrain_heights[i]=terrainFunction(i)-(i/2);
+            this.terrain_heights[i]=terrainFunction(i);
         }
     }
 
     private int terrainFunction(int x_pos) {
         if (x_pos < 500)
-            return 500;
-        else return 600;
+            return 300;
+        else return 350;
     }
 
     public int getYPos(int x_pos) {
