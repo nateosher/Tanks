@@ -17,19 +17,21 @@ public class TerrainModel {
     private int[] terrain_heights;
 
     public TerrainModel() {
-        this.terrain_heights = new int[800];
+        this.terrain_heights = new int[1200];
         makeTerrain();
         this.randomNumberGenerator = new Random();
     }
 
     private void makeTerrain() {
-        for (int i=0; i<800; i++) {
-            this.terrain_heights[i]=terrainFunction(i);
+        for (int i=0; i<1200; i++) {
+            this.terrain_heights[i]=terrainFunction(i)-(i/2);
         }
     }
 
     private int terrainFunction(int x_pos) {
-        return 500;
+        if (x_pos < 500)
+            return 500;
+        else return 600;
     }
 
     public int getYPos(int x_pos) {

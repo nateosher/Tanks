@@ -71,11 +71,15 @@ public class TerrainView extends Group {
 
     public void update() {
         this.getChildren().clear();
-
+        Rectangle sliver1 = new Rectangle(0,0,
+                10, 30);
+        sliver1.setFill(this.getTerrainColor());
+        this.getChildren().add(sliver1);
         // Many, many, rectangles
         for (int i=0; i<this.width; i++) {
-            Rectangle sliver = new Rectangle(i, this.terrainModel.getYPos(i+this.x_left_shift),
-                    2, this.height-this.terrainModel.getYPos(i+this.x_left_shift));
+            Rectangle sliver = new Rectangle(i, this.height-this.terrainModel.getYPos(i + this.x_left_shift),
+                    1, this.terrainModel.getYPos(i+this.x_left_shift));
+            System.out.println(this.height - this.terrainModel.getYPos(i + this.x_left_shift) + ", " + this.terrainModel.getYPos(i + this.x_left_shift));
             sliver.setFill(this.getTerrainColor());
             this.getChildren().add(sliver);
         }
