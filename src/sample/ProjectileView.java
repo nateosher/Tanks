@@ -24,6 +24,8 @@ public class ProjectileView extends Group {
 
     public void update() {
         this.getChildren().clear();
+        this.projectileModel.updatePosX();
+        this.projectileModel.updatePosY();
         Circle projectile = new Circle(this.projectileModel.getPosX(),this.projectileModel.getPosY(),
                 5);
         this.getChildren().add(projectile);
