@@ -113,6 +113,16 @@ public class Controller implements EventHandler<KeyEvent>{
         } else if (code == KeyCode.T) {
             this.terrainView.destroyChunk(500, 50);
             this.terrainView.destroyChunk(750, 20);
+            int team = 0;
+            for (Node node : this.TankGroup.getChildren()) {
+                TankView tankView = (TankView) node;
+                tankView.getTank().drop(500, 50);
+                tankView.getTank().drop(750, 20);
+                tankView.getBody().setLayoutY(tankView.getTank().getY());
+                tankView.update();
+                team++;
+            }
+            keyEvent.consume();
 
         } else if (code == KeyCode.F) {
             System.out.println("pew!");
