@@ -17,12 +17,13 @@
 
     <Group fx:id="TerrainGroup" AnchorPane.bottomAnchor="0">
         <TerrainView width="1200"
-                     height="685"
+                     height="800"
                      terrainColor="darkgreen"
                 />
     </Group>
 
     <Group fx:id="TankGroup">
+        <TankView />
         <TankView />
 
     </Group>

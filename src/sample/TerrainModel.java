@@ -17,7 +17,7 @@ public class TerrainModel {
     private int[] terrain_heights;
     private double randomFactor;
     final int DEFAULT_WIDTH = 1200;
-    final int DEFAULT_HEIGHT = 685;
+    final int DEFAULT_HEIGHT = 800;
 
     public TerrainModel() {
         this.terrain_heights = new int[DEFAULT_WIDTH];
@@ -34,7 +34,7 @@ public class TerrainModel {
 
     private int terrainFunction(int x_pos) {
         double x = (double) x_pos;
-        return (int) (((double)DEFAULT_HEIGHT)-((this.randomFactor*30+48)*(Math.cos(x/(randomFactor*100+50)+(randomFactor+.25)*70)+2)));
+        return (int) (((double)DEFAULT_HEIGHT)-((this.randomFactor*30+48)*(Math.cos(x/(randomFactor*100+50)+(randomFactor+.25)*70)+2))-150);
         //if (x_pos < 500)
         //    return 300;
         //else return 350;

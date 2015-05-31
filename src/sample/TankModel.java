@@ -16,6 +16,7 @@ public class TankModel {
     private int startXCor;
     private int xCor;
     private int yCor;
+    private TerrainModel terrainModel;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -23,6 +24,7 @@ public class TankModel {
     final Color DEFAULT_BORDER = Color.BLACK;
     final int DEFAULT_X = 0;
     final int DEFAULT_Y = 0;
+    final int DEFAULT_MOVE = 5;
 
     public TankModel(){
         this.randomNumberGenerator = new Random();
@@ -37,6 +39,8 @@ public class TankModel {
         this.yCor = DEFAULT_Y;
     }
 
+    public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
+
     public int getStartXCor(){ return this.startXCor; }
 
     public int getWidth(){ return this.width; }
@@ -49,10 +53,26 @@ public class TankModel {
 
     public void setX(int newX){ this.xCor = newX; }
 
+    public void setPositionByX (int newX) {
+        this.xCor = newX;
+        this.yCor = this.terrainModel.getYPos(this.xCor) - 15; }
+
     public int getX() { return this.xCor; }
 
     public void setY(int newY) {this.yCor = newY;}
 
     public int getY() { return this.yCor; }
 
+    public void moveLeft() {
+        if (this.xCor>0) {
+            this.xCor -= 5;
+            this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
+        }
+    }
+    public void moveRight() {
+        if (this.xCor<1170) {
+            this.xCor += 5;
+            this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
+        }
+    }
 }

@@ -19,8 +19,13 @@ public class TankView extends Group{
     public int getTerrainHeight(int xPos){ return this.terrainModel.getYPos(xPos); }
 
     public TankView(){
+
         // this.terrainModel = terrainModel;
-        this.tank = new TankModel();
+
+    }
+
+    public void setTankModel(TankModel tankModel) {
+        this.tank = tankModel;
         this.tankBody = new Rectangle(this.getTank().getX(), this.getTank()
                 .getY(), this.getTank().getWidth(), this.getTank().getHeight());
         this.tankBody.setFill(this.getTank().getTankCol());

@@ -21,7 +21,7 @@ public class TerrainView extends Group {
     //private int x_left_shift;
 
     final int DEFAULT_WIDTH = 1200;
-    final int DEFAULT_HEIGHT = 685;
+    final int DEFAULT_HEIGHT = 800;
 
     public TerrainView() {
         // this.width = DEFAULT_WIDTH;

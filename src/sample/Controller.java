@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import java.util.*;
 
 
 public class Controller implements EventHandler<KeyEvent>{
@@ -22,9 +23,13 @@ public class Controller implements EventHandler<KeyEvent>{
     private TerrainModel terrainModel;
     private TerrainView terrainView;
     public Group TankGroup;
-    private TankView tankView;
+    private TankView activeTankView;
+    private TankModel activeTankModel;
     public Group ProjectileGroup;
     private ProjectileView projectileView;
+    private List<TankModel> tankModels;
+    private List<TankView> tankViews;
+    private int activeTankIndex;
 
     public Controller() {
     }
@@ -37,43 +42,59 @@ public class Controller implements EventHandler<KeyEvent>{
             this.terrainView.setTerrainModel(this.terrainModel);
             this.terrainView.update();
         }
+        //this.tankModel = new TankModel();
+        //this.tankView = new TankView();
+        //this.tankView.setTankModel(this.tankModel);
+        //this.tankView.getTank().setTerrainModel(this.terrainModel);
+        //this.tankModel = this.tankView.getTank();
 
-        this.tankView = new TankView();
+        this.tankModels = new ArrayList<TankModel>();
+        this.tankViews = new ArrayList<TankView>();
+
         for (Node node : this.TankGroup.getChildren()) {
-            this.tankView = (TankView)node;
-            // this.tankView.getTank().setY(this.terrainModel.getYPos(this.tankView.getTank().getX()));
-            // tank_view.setTerrainModel(this.terrainModel);
-            this.tankView.update();
+            TankModel tankModel = new TankModel();
+            tankModel.setTerrainModel(this.terrainModel);
+
+            TankView tankView = (TankView)node;
+            tankView.setTankModel(tankModel);
+            tankView.update();
+
+
+            tankModel.setPositionByX(80);
+
+            tankView.getBody().setLayoutX(tankModel.getX());
+            tankView.getBody().setLayoutY(tankModel.getY());
+
+            this.tankModels.add(tankModel);
+            this.tankViews.add(tankView);
+
+            this.activeTankModel = tankModel;
+            this.activeTankView = tankView;
         }
+        this.activeTankIndex = 1;
+
+
     }
 
     @Override
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
-        int tankXPos = this.tankView.getTank().getX();
-        int offset = this.tankView.getTank().getStartXCor() + 5;
         // System.out.println("Got here");
-        if ((code == KeyCode.LEFT || code == KeyCode.A) && (this.tankView.getTank().getX() + offset - 5) >= 0) {
-            // move tank left
-            int newX = tankXPos - 5;
-            int newY = this.terrainModel.getYPos(newX + offset);
-            this.tankView.getTank().setX(newX);
-            this.tankView.getTank().setY(newY);
-            // System.out.println("Left");
-            this.tankView.getBody().setLayoutX(newX);
-            this.tankView.getBody().setLayoutY(newY);
+        if (code == KeyCode.LEFT || code == KeyCode.A) {
+            //if (this.tankView.getTank().getX() + offset - 5) >= 0)
+            this.activeTankModel.moveLeft();
+            this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
+            this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
-        } else if ((code == KeyCode.RIGHT || code == KeyCode.D) && (this.tankView.getTank().getX() + offset + 5) <= 1200) {
+        } else if (code == KeyCode.RIGHT || code == KeyCode.D) {
             // move tank right
             // System.out.println("Right");
-            int newX = tankXPos + 5;
-            int newY = this.terrainModel.getYPos(newX + offset);
-            this.tankView.getTank().setX(newX);
-            this.tankView.getTank().setY(newY);
-            this.tankView.getBody().setLayoutX(newX);
-            this.tankView.getBody().setLayoutY(newY);
+            this.activeTankModel.moveRight();
+            this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
+            this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
+
         } else if (code == KeyCode.F) {
             System.out.println("pew!");
             this.ProjectileGroup = new ProjectileView();
@@ -85,9 +106,21 @@ public class Controller implements EventHandler<KeyEvent>{
                 this.projectileView.update();
             }
             keyEvent.consume();
+        } else if (code == KeyCode.Q) {
+            System.out.println("my turn");
+            if(this.activeTankIndex==0) {
+                this.activeTankModel = this.tankModels.get(1);
+                this.activeTankView = this.tankViews.get(1);
+                this.activeTankIndex = 1;
+            }
+            else {
+                this.activeTankModel = this.tankModels.get(0);
+                this.activeTankView = this.tankViews.get(0);
+                this.activeTankIndex = 0;
+            }
         }
-        int testXCor = this.tankView.getTank().getX();
-        int testYCor = this.tankView.getTank().getY();
+        int testXCor = this.activeTankModel.getX();
+        int testYCor = this.activeTankModel.getY();
         String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
         System.out.println(testString) ;
 
