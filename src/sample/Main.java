@@ -12,9 +12,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = (Parent)loader.load();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        root.setFocusTraversable(true);
+        Controller controller = loader.getController();
+
+        root.setOnKeyPressed(controller);
+
+        primaryStage.setTitle("Tanks?");
+        primaryStage.setScene(new Scene(root, 1200, 800));
+        primaryStage.setResizable(false);
         primaryStage.show();
+        root.requestFocus();
     }
 
 

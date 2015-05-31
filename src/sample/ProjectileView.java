@@ -15,12 +15,12 @@ public class ProjectileView extends Group {
     @FXML private Color projectileColor;
     @FXML private int projectileRadius;
 
-    public ProjectileView (double pos_x, double pos_y, double vel_x, double vel_y,
-                           int power) {
-        this.projectileModel = new ProjectileModel(pos_x, pos_y, vel_x, vel_y,
-                power);
-
+    public ProjectileView () {
+        this.projectileModel = new ProjectileModel();
+        this.update();
     }
+
+    public ProjectileModel getProjectileModel() { return this.projectileModel; }
 
     public void update() {
         this.getChildren().clear();

@@ -4,26 +4,39 @@ package sample;
  * 5/28/15.
  */
 public class ProjectileModel {
-    private double pos_x;
-    private double pos_y;
+    private int pos_x;
+    private int pos_y;
     private double vel_x;
     private double vel_y;
     private int power;
 
-    public ProjectileModel(double pos_x, double pos_y, double vel_x, double vel_y, int power) {
-        this.pos_x = pos_x;
-        this.pos_y = pos_y;
-        this.vel_x = vel_x;
-        this.vel_y = vel_y;
+    final int DEFAULT_X = 100;
+    final int DEFAULT_Y = 100;
+    final int DEFAULT_VEL_X = 0;
+    final int DEFAULT_VEL_Y = 0;
+
+    public ProjectileModel() {
+        this.pos_x = DEFAULT_X;
+        this.pos_y = DEFAULT_Y;
+        this.vel_x = DEFAULT_VEL_X;
+        this.vel_y = DEFAULT_VEL_Y;
         this.power = power;
     }
 
-    public double getPosX() {
+    public int getPosX() {
         return this.pos_x;
     }
 
-    public double getPosY() {
+    public int getPosY() {
         return this.pos_y;
+    }
+
+    public void setPosX(int newPosX) {
+        this.pos_x = newPosX;
+    }
+
+    public void setPosY(int newPosY) {
+        this.pos_y = newPosY;
     }
 
     public double getVelX() {

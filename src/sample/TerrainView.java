@@ -18,20 +18,14 @@ public class TerrainView extends Group {
     @FXML private Color terrainColor;
     @FXML private int width;
     @FXML private int height;
-    private int x_left_shift;
+    //private int x_left_shift;
 
-
-    //Are these finals necessary? FXML is passing in color values too
-    /*
-
-    final double DEFAULT_WIDTH = 200.0;
-    final Color DEFAULT_DOT_COLOR = Color.GREEN;
-    final Color DEFAULT_BORDER_COLOR = Color.BLACK;
-    final Color DEFAULT_BACKGROUND_COLOR = Color.TRANSPARENT; */
+    final int DEFAULT_WIDTH = 1200;
+    final int DEFAULT_HEIGHT = 685;
 
     public TerrainView() {
-        //Do we care?
-        this.x_left_shift = 0;
+        // this.width = DEFAULT_WIDTH;
+        // this.height = DEFAULT_HEIGHT;
         update();
     }
 
@@ -53,13 +47,13 @@ public class TerrainView extends Group {
         this.height = height;
     }
 
-    public int getXLeftShift() {
-        return this.x_left_shift;
-    }
+    //public int getXLeftShift() {
+    //    return this.x_left_shift;
+    //}
 
-    public void setXLeftShift(int x_left_shift) {
-        this.x_left_shift = x_left_shift;
-    }
+    //public void setXLeftShift(int x_left_shift) {
+    //    this.x_left_shift = x_left_shift;
+    //}
 
     public Color getTerrainColor() {
         return this.terrainColor;
@@ -71,18 +65,19 @@ public class TerrainView extends Group {
 
     public void update() {
         this.getChildren().clear();
-        Rectangle sliver1 = new Rectangle(0,0,
-                10, 30);
-        sliver1.setFill(this.getTerrainColor());
-        this.getChildren().add(sliver1);
+        //Rectangle sliver1 = new Rectangle(0,0,
+                //10, 30);
+        //sliver1.setFill(this.getTerrainColor());
+        //this.getChildren().add(sliver1);
         // Many, many, rectangles
         for (int i=0; i<this.width; i++) {
-            Rectangle sliver = new Rectangle(i, this.height-this.terrainModel.getYPos(i + this.x_left_shift),
-                    1, this.terrainModel.getYPos(i+this.x_left_shift));
-            System.out.println(this.height - this.terrainModel.getYPos(i + this.x_left_shift) + ", " + this.terrainModel.getYPos(i + this.x_left_shift));
+            Rectangle sliver = new Rectangle(i, this.terrainModel.getYPos(i),
+                    1, this.height-this.terrainModel.getYPos(i));
+            // Rectangle sliver = new Rectangle(i, this.height-this.terrainModel.getYPos(i + this.x_left_shift),
+                    // 1, this.terrainModel.getYPos(i+this.x_left_shift));
+            //System.out.println(this.height - this.terrainModel.getYPos(i + this.x_left_shift) + ", " + this.terrainModel.getYPos(i + this.x_left_shift));
             sliver.setFill(this.getTerrainColor());
             this.getChildren().add(sliver);
         }
-
     }
 }
