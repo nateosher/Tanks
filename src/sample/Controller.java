@@ -116,8 +116,8 @@ public class Controller implements EventHandler<KeyEvent>{
             int team = 0;
             for (Node node : this.TankGroup.getChildren()) {
                 TankView tankView = (TankView) node;
-                tankView.getTank().drop(500, 50);
-                tankView.getTank().drop(750, 20);
+                tankView.getTank().takeHit(500, 50, 0);
+                tankView.getTank().takeHit(750, 20, 0);
                 tankView.getBody().setLayoutY(tankView.getTank().getY());
                 tankView.update();
                 team++;

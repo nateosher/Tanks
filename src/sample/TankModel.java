@@ -90,10 +90,19 @@ public class TankModel {
     }
 
     // call on each tank every time a projectile is fired!
-    public void drop(int projXCor, int radius) {
+    public void takeHit(int projXCor, int radius, int damage) {
         if (Math.abs(this.getX()-projXCor) <= radius) {
-            int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
-            this.setY(droppedY);
+            drop();
+            loseHealth(damage);
         }
+    }
+
+    private void loseHealth(int damage) {
+        this.health -= damage;
+    }
+
+    private void drop() {
+        int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
+        this.setY(droppedY);
     }
 }

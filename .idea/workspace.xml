@@ -139,7 +139,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-15.555555">
-              <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
+              <caret line="119" column="55" selection-start-line="119" selection-start-column="55" selection-end-line="119" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,14 +150,16 @@
       <file leaf-file-name="TankModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/TankModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82758623">
-              <caret line="70" column="60" selection-start-line="70" selection-start-column="60" selection-end-line="70" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.5073892">
+              <caret line="93" column="55" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1469#1470#0" expanded="true" />
                 <element signature="e#1503#1504#0" expanded="true" />
                 <element signature="e#1532#1533#0" expanded="true" />
                 <element signature="e#1565#1566#0" expanded="true" />
+                <element signature="e#2820#2821#0" expanded="true" />
+                <element signature="e#2857#2858#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -636,12 +638,12 @@
       <workItem from="1432868487888" duration="122000" />
       <workItem from="1432868659567" duration="4483000" />
       <workItem from="1432913573418" duration="3830000" />
-      <workItem from="1433087106468" duration="24873000" />
+      <workItem from="1433087106468" duration="25431000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52094000" />
+    <option name="totallyTimeSpent" value="52652000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="136" y="22" width="1484" height="970" extended-state="0" />
@@ -665,7 +667,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16846362" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29300776" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29300776" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -783,6 +785,8 @@
             <element signature="e#1503#1504#0" expanded="true" />
             <element signature="e#1532#1533#0" expanded="true" />
             <element signature="e#1565#1566#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2857#2858#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1156,7 +1160,7 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.555555">
-          <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
+          <caret line="119" column="55" selection-start-line="119" selection-start-column="55" selection-end-line="119" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1165,14 +1169,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/TankModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82758623">
-          <caret line="70" column="60" selection-start-line="70" selection-start-column="60" selection-end-line="70" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.5073892">
+          <caret line="93" column="55" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1469#1470#0" expanded="true" />
             <element signature="e#1503#1504#0" expanded="true" />
             <element signature="e#1532#1533#0" expanded="true" />
             <element signature="e#1565#1566#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2857#2858#0" expanded="true" />
           </folding>
         </state>
       </provider>
