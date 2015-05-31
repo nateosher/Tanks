@@ -2,7 +2,7 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Nate on 5/28/15.
@@ -17,29 +17,39 @@ public class TankModel {
     private int xCor;
     private int yCor;
     private TerrainModel terrainModel;
+    private int power;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
-    final Color DEFAULT_TANKCOL = Color.DARKORANGE;
+    final Color[] DEFAULT_TANKCOL = {Color.DARKORANGE, Color.BLUEVIOLET};
     final Color DEFAULT_BORDER = Color.BLACK;
     final int DEFAULT_X = 0;
     final int DEFAULT_Y = 0;
     final int DEFAULT_MOVE = 5;
+    final int DEFAULT_POWER = 50;
 
-    public TankModel(){
+    public TankModel(int team){
         this.randomNumberGenerator = new Random();
         this.width = DEFAULT_WIDTH;
         this.height = DEFAULT_HEIGHT;
-        this.tankCol = DEFAULT_TANKCOL;
+        this.tankCol = DEFAULT_TANKCOL[team];
         this.borderColor = DEFAULT_BORDER;
         // this.startXCor = randomNumberGenerator.nextInt(1200);
-        // this.xCor = startXCor;
         this.startXCor = DEFAULT_X;
         this.xCor = startXCor;
         this.yCor = DEFAULT_Y;
+        this.power = DEFAULT_POWER;
     }
 
     public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getPower() {
+        return this.power;
+    }
 
     public int getStartXCor(){ return this.startXCor; }
 
@@ -64,13 +74,13 @@ public class TankModel {
     public int getY() { return this.yCor; }
 
     public void moveLeft() {
-        if (this.xCor>0) {
+        if (this.xCor > 5) {
             this.xCor -= 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
         }
     }
     public void moveRight() {
-        if (this.xCor<1170) {
+        if (this.xCor < 1170) {
             this.xCor += 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
         }

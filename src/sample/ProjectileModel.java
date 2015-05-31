@@ -47,6 +47,14 @@ public class ProjectileModel {
         return this.vel_y;
     }
 
+    public void setVelX(int newVelX) {
+        this.vel_x = newVelX;
+    }
+
+    public void setVelY(int newVelY) {
+        this.vel_y = newVelY;
+    }
+
     public void updatePosX() {
         this.pos_x += this.vel_x;
     }

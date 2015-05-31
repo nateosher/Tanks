@@ -14,13 +14,13 @@ import java.util.Random;
 
 public class TerrainModel {
     private Random randomNumberGenerator;
-    private int[] terrain_heights;
+    private int[] terrainHeights;
     private double randomFactor;
     final int DEFAULT_WIDTH = 1200;
     final int DEFAULT_HEIGHT = 800;
 
     public TerrainModel() {
-        this.terrain_heights = new int[DEFAULT_WIDTH];
+        this.terrainHeights = new int[DEFAULT_WIDTH];
         this.randomNumberGenerator = new Random();
         this.randomFactor = this.randomNumberGenerator.nextDouble();
         makeTerrain();
@@ -28,7 +28,7 @@ public class TerrainModel {
 
     private void makeTerrain() {
         for (int i=0; i<DEFAULT_WIDTH; i++) {
-            this.terrain_heights[i] = terrainFunction(i);
+            this.terrainHeights[i] = terrainFunction(i);
         }
     }
 
@@ -40,7 +40,16 @@ public class TerrainModel {
         //else return 350;
     }
 
+    public void destroyChunk(int xCor, int radius) {
+        for (int i = (xCor - radius); i <= (xCor + radius); i++) {
+            if ((i > 0) && (i < 1200)) {
+                int explosionDepth = (int) (Math.sqrt((double) ((radius*radius)-(Math.abs(xCor-i)*Math.abs(xCor-i)))));
+                terrainHeights[i] += explosionDepth;
+            }
+        }
+    }
+
     public int getYPos(int x_pos) {
-        return this.terrain_heights[x_pos];
+        return this.terrainHeights[x_pos];
     }
 }

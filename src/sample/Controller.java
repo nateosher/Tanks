@@ -30,11 +30,16 @@ public class Controller implements EventHandler<KeyEvent>{
     private List<TankModel> tankModels;
     private List<TankView> tankViews;
     private int activeTankIndex;
+    private Random randomNumberGenerator;
+    private double randomFactor;
 
     public Controller() {
     }
 
     public void initialize() {
+
+        this.randomNumberGenerator = new Random();
+        this.randomFactor = randomNumberGenerator.nextDouble();
 
         this.terrainModel = new TerrainModel();
         for (Node node : this.TerrainGroup.getChildren()) {
@@ -51,8 +56,9 @@ public class Controller implements EventHandler<KeyEvent>{
         this.tankModels = new ArrayList<TankModel>();
         this.tankViews = new ArrayList<TankView>();
 
+        int team = 0;
         for (Node node : this.TankGroup.getChildren()) {
-            TankModel tankModel = new TankModel();
+            TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
 
             TankView tankView = (TankView)node;
@@ -60,7 +66,7 @@ public class Controller implements EventHandler<KeyEvent>{
             tankView.update();
 
 
-            tankModel.setPositionByX(80);
+            tankModel.setPositionByX((int) (40 + (team + 1) * (randomFactor) * 580));
 
             tankView.getBody().setLayoutX(tankModel.getX());
             tankView.getBody().setLayoutY(tankModel.getY());
@@ -70,10 +76,18 @@ public class Controller implements EventHandler<KeyEvent>{
 
             this.activeTankModel = tankModel;
             this.activeTankView = tankView;
+            team++;
         }
         this.activeTankIndex = 1;
+    }
 
-
+    public ProjectileView initializeProjectile(TankModel tank) {
+        ProjectileView projectile = new ProjectileView();
+        projectile.getProjectileModel().setPosX(tank.getX());
+        projectile.getProjectileModel().setPosY(tank.getY());
+        projectile.getProjectileModel().setVelX((int) (Math.cos((double) tank.getPower())));
+        projectile.getProjectileModel().setVelY((int) (Math.sin((double) tank.getPower())));
+        return projectile;
     }
 
     @Override
@@ -95,9 +109,14 @@ public class Controller implements EventHandler<KeyEvent>{
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
+        // Just a test to demonstrate destructible terrain
+        } else if (code == KeyCode.T) {
+            this.terrainView.destroyChunk(500, 50);
+            this.terrainView.destroyChunk(750, 20);
+
         } else if (code == KeyCode.F) {
             System.out.println("pew!");
-            this.ProjectileGroup = new ProjectileView();
+            this.ProjectileGroup = initializeProjectile(this.activeTankModel);
             for (Node node : this.ProjectileGroup.getChildren()) {
                 System.out.println("there's a projectile node!");
                 this.projectileView = (ProjectileView)node;

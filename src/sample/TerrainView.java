@@ -63,13 +63,13 @@ public class TerrainView extends Group {
         this.terrainColor = terrainColor;
     }
 
+    public void destroyChunk(int xCor, int radius) {
+        this.terrainModel.destroyChunk(xCor, radius);
+        update();
+    }
+
     public void update() {
         this.getChildren().clear();
-        //Rectangle sliver1 = new Rectangle(0,0,
-                //10, 30);
-        //sliver1.setFill(this.getTerrainColor());
-        //this.getChildren().add(sliver1);
-        // Many, many, rectangles
         for (int i=0; i<this.width; i++) {
             Rectangle sliver = new Rectangle(i, this.terrainModel.getYPos(i),
                     1, this.height-this.terrainModel.getYPos(i));
