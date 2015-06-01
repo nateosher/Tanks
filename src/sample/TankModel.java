@@ -18,6 +18,7 @@ public class TankModel {
     private int yCor;
     private TerrainModel terrainModel;
     private int power;
+    private double health;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -27,6 +28,7 @@ public class TankModel {
     final int DEFAULT_Y = 0;
     final int DEFAULT_MOVE = 5;
     final int DEFAULT_POWER = 50;
+    final double DEFAULT_HEALTH = 90;
 
     public TankModel(int team){
         this.randomNumberGenerator = new Random();
@@ -39,6 +41,7 @@ public class TankModel {
         this.xCor = startXCor;
         this.yCor = DEFAULT_Y;
         this.power = DEFAULT_POWER;
+        this.health = DEFAULT_HEALTH;
     }
 
     public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
@@ -72,6 +75,8 @@ public class TankModel {
     public void setY(int newY) {this.yCor = newY;}
 
     public int getY() { return this.yCor; }
+
+    public void takeDamage(double damage) { this.health -= damage; }
 
     public void moveLeft() {
         if (this.xCor > 5) {
