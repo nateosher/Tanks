@@ -70,6 +70,9 @@ public class Controller implements EventHandler<KeyEvent>{
 
             tankView.getBody().setLayoutX(tankModel.getX());
             tankView.getBody().setLayoutY(tankModel.getY());
+            tankView.getNozzle().setLayoutX(tankModel.getX() +
+                    (tankModel.getWidth() / 2));
+            tankView.getNozzle().setLayoutY(tankModel.getY());
 
             this.tankModels.add(tankModel);
             this.tankViews.add(tankView);
@@ -99,6 +102,9 @@ public class Controller implements EventHandler<KeyEvent>{
             this.activeTankModel.moveLeft();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
+            this.activeTankView.getNozzle().setLayoutX(this.activeTankModel.getX()
+                    + (activeTankModel.getWidth() / 2));
+            this.activeTankView.getNozzle().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
         } else if (code == KeyCode.RIGHT || code == KeyCode.D) {
@@ -107,6 +113,9 @@ public class Controller implements EventHandler<KeyEvent>{
             this.activeTankModel.moveRight();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
+            this.activeTankView.getNozzle().setLayoutX(this.activeTankModel.getX()
+                    + (activeTankModel.getWidth() / 2));
+            this.activeTankView.getNozzle().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
         // Just a test to demonstrate destructible terrain
@@ -135,22 +144,65 @@ public class Controller implements EventHandler<KeyEvent>{
                 this.projectileView.update();
             }
             keyEvent.consume();
+
         } else if (code == KeyCode.Q) {
             System.out.println("my turn");
             if(this.activeTankIndex==0) {
                 this.activeTankModel = this.tankModels.get(1);
                 this.activeTankView = this.tankViews.get(1);
                 this.activeTankIndex = 1;
-            }
-            else {
+
+            } else {
                 this.activeTankModel = this.tankModels.get(0);
                 this.activeTankView = this.tankViews.get(0);
                 this.activeTankIndex = 0;
             }
-        }
-        int testXCor = this.activeTankModel.getX();
-        int testYCor = this.activeTankModel.getY();
-        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
+        } else if (code == KeyCode.UP || code == KeyCode.W){
+            // Rotate nozzle left
+            if (this.activeTankModel.getNozzleAngle() < 180){
+                this.activeTankModel.setNozzleAngle(this.activeTankModel.getNozzleAngle() + 5);
+                this.activeTankView.getNozzle().getTransforms().add(this.activeTankView
+                        .getrPos());
+                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                        .getNozzleY());
+                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                        .getLayoutY());
+                keyEvent.consume();
+            } else{
+                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                        .getNozzleY());
+                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                        .getLayoutY());
+                keyEvent.consume();
+            }
+
+
+        } else if (code == KeyCode.DOWN || code == KeyCode.S){
+            // Rotate nozzle left
+            if (this.activeTankModel.getNozzleAngle() > 0){
+                this.activeTankModel.setNozzleAngle(this.activeTankModel.getNozzleAngle() - 5);
+                this.activeTankView.getNozzle().getTransforms().add(this.activeTankView
+                        .getrNeg());
+                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                        .getNozzleY());
+                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                        .getLayoutY());
+                keyEvent.consume();
+            } else{
+                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                        .getNozzleY());
+                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                        .getLayoutY());
+                keyEvent.consume();
+            }
+    }
+//        int testXCor = this.activeTankModel.getX();
+//        int testYCor = this.activeTankModel.getY();
+//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
+//        System.out.println(testString) ;
+
+        int nzang = this.activeTankModel.getNozzleAngle();
+        String testString = String.format("Nozzle angle: %s", (nzang));
         System.out.println(testString) ;
 
     }
