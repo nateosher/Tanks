@@ -19,7 +19,6 @@ public class TankModel {
     private int yCor;
     private TerrainModel terrainModel;
     private int power;
-    private double health;
     private int fuel;
     private int health;
 
