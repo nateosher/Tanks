@@ -63,14 +63,13 @@ public class TankView extends Group{
 
     public void update(){
         this.getChildren().clear();
-<<<<<<< HEAD
         this.tankBody.setLayoutX(this.tank.getX());
         this.tankBody.setLayoutY(this.tank.getY());
+        this.tankNozzle.setLayoutX(this.tank.getX()
+                + (this.tank.getWidth() / 2));
+        this.tankNozzle.setLayoutY(this.tank.getY());
         this.getChildren().add(this.tankBody);
-=======
-        this.getChildren().add(tankBody);
-        this.getChildren().add(tankNozzle);
->>>>>>> c90e92a98680a91062fe419cf13a2c849c7699d0
+        this.getChildren().add(this.tankNozzle);
     }
 
 }

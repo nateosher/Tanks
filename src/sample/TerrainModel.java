@@ -42,7 +42,7 @@ public class TerrainModel {
 
     public void destroyChunk(int xCor, int radius) {
         for (int i = (xCor - radius); i <= (xCor + radius); i++) {
-            if ((i > 0) && (i < 1200)) {
+            if ((i >= 0) && (i < 1200)) {
                 int explosionDepth = (int) (Math.sqrt((double) ((radius*radius)-(Math.abs(xCor-i)*Math.abs(xCor-i)))));
                 terrainHeights[i] += explosionDepth;
             }
