@@ -21,6 +21,11 @@ public class TankModel {
     private int power;
     private int fuel;
     private int health;
+    private int nozzleXCor;
+    private int nozzleYCor;
+    private int nozzleLength;
+    private int nozzleHeight;
+    private int nozzleAngle;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -45,6 +50,11 @@ public class TankModel {
         this.yCor = DEFAULT_Y;
         this.power = DEFAULT_POWER;
         this.health = DEFAULT_HEALTH;
+        this.nozzleXCor = startXCor;
+        this.nozzleYCor = DEFAULT_Y;
+        this.nozzleLength = 20;
+        this.nozzleHeight = 3;
+        this.nozzleAngle = 0;
         this.fuel = DEFAULT_FUEL;
     }
 
@@ -69,6 +79,22 @@ public class TankModel {
     public Color getBorderColor(){ return this.borderColor; }
 
     public void setX(int newX){ this.xCor = newX; }
+
+    public void setNozzleX(int newX){ this.nozzleXCor = newX; }
+
+    public int getNozzleX() { return this.nozzleXCor; }
+
+    public void setNozzleY(int newY) {this.nozzleYCor = newY;}
+
+    public int getNozzleY() { return this.nozzleYCor; }
+
+    public int getNozzleLength() { return this.nozzleLength; }
+
+    public int getNozzleHeight() { return this.nozzleHeight; }
+
+    public int getNozzleAngle() { return this.nozzleAngle; }
+
+    public void setNozzleAngle(int newAn) { this.nozzleAngle = newAn; }
 
     public void setPositionByX (int newX) {
         this.xCor = newX;
