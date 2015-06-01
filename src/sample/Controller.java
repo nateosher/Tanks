@@ -1,5 +1,7 @@
 package sample;
 
+import com.sun.javafx.binding.StringFormatter;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -18,7 +20,10 @@ import javafx.scene.shape.Rectangle;
 import java.util.*;
 
 
-public class Controller implements EventHandler<KeyEvent>{
+public class Controller implements EventHandler<KeyEvent> {
+    @FXML private Label TankHealth;
+    @FXML private Label Fuel;
+
     public Group TerrainGroup;
     private TerrainModel terrainModel;
     private TerrainView terrainView;
@@ -32,6 +37,9 @@ public class Controller implements EventHandler<KeyEvent>{
     private int activeTankIndex;
     private Random randomNumberGenerator;
     private double randomFactor;
+    private ProjectileModel projectileModel;
+
+
 
     public Controller() {
     }
@@ -43,7 +51,7 @@ public class Controller implements EventHandler<KeyEvent>{
 
         this.terrainModel = new TerrainModel();
         for (Node node : this.TerrainGroup.getChildren()) {
-            this.terrainView = (TerrainView)node;
+            this.terrainView = (TerrainView) node;
             this.terrainView.setTerrainModel(this.terrainModel);
             this.terrainView.update();
         }
@@ -61,7 +69,7 @@ public class Controller implements EventHandler<KeyEvent>{
             TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
 
-            TankView tankView = (TankView)node;
+            TankView tankView = (TankView) node;
             tankView.setTankModel(tankModel);
             tankView.update();
 
@@ -93,13 +101,21 @@ public class Controller implements EventHandler<KeyEvent>{
         return projectile;
     }
 
+    public void updateFuelDisplay() {
+        this.activeTankModel.getFuel();
+        int fuel = this.activeTankModel.getFuel();
+        String fuelString = String.format("Fuel Remaining: %s", (fuel));
+        this.Fuel.setText(fuelString);
+    }
+
     @Override
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
         // System.out.println("Got here");
-        if (code == KeyCode.LEFT || code == KeyCode.A) {
+        if ((code == KeyCode.LEFT || code == KeyCode.A) && this.activeTankModel.getFuel()>0) {
             //if (this.tankView.getTank().getX() + offset - 5) >= 0)
             this.activeTankModel.moveLeft();
+            updateFuelDisplay();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             this.activeTankView.getNozzle().setLayoutX(this.activeTankModel.getX()
@@ -107,10 +123,11 @@ public class Controller implements EventHandler<KeyEvent>{
             this.activeTankView.getNozzle().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
-        } else if (code == KeyCode.RIGHT || code == KeyCode.D) {
+        } else if ((code == KeyCode.RIGHT || code == KeyCode.D) && this.activeTankModel.getFuel()>0) {
             // move tank right
             // System.out.println("Right");
             this.activeTankModel.moveRight();
+            updateFuelDisplay();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             this.activeTankView.getNozzle().setLayoutX(this.activeTankModel.getX()
@@ -118,7 +135,7 @@ public class Controller implements EventHandler<KeyEvent>{
             this.activeTankView.getNozzle().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
-        // Just a test to demonstrate destructible terrain
+            // Just a test to demonstrate destructible terrain
         } else if (code == KeyCode.T) {
             this.terrainView.destroyChunk(500, 50);
             this.terrainView.destroyChunk(750, 20);
@@ -134,24 +151,15 @@ public class Controller implements EventHandler<KeyEvent>{
             keyEvent.consume();
 
         } else if (code == KeyCode.F) {
-            System.out.println("pew!");
-            this.ProjectileGroup = initializeProjectile(this.activeTankModel);
-            for (Node node : this.ProjectileGroup.getChildren()) {
-                System.out.println("there's a projectile node!");
-                this.projectileView = (ProjectileView)node;
-                //this.projectileView.getProjectileModel().setPosX(this.tankView.getTank().getX());
-                //this.projectileView.getProjectileModel().setPosX(this.tankView.getTank().getY());
-                this.projectileView.update();
-            }
-            keyEvent.consume();
-
+            //this.activeTankModel.getX(),this.activeTankModel.getY(),angle,intensity);
+            shootProjectile();
+            swapTanks();
         } else if (code == KeyCode.Q) {
             System.out.println("my turn");
-            if(this.activeTankIndex==0) {
+            if (this.activeTankIndex == 0) {
                 this.activeTankModel = this.tankModels.get(1);
                 this.activeTankView = this.tankViews.get(1);
                 this.activeTankIndex = 1;
-
             } else {
                 this.activeTankModel = this.tankModels.get(0);
                 this.activeTankView = this.tankViews.get(0);
@@ -201,9 +209,121 @@ public class Controller implements EventHandler<KeyEvent>{
 //        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
 //        System.out.println(testString) ;
 
-        int nzang = this.activeTankModel.getNozzleAngle();
-        String testString = String.format("Nozzle angle: %s", (nzang));
-        System.out.println(testString) ;
+//        int nzang = this.activeTankModel.getNozzleAngle();
+//        String testString = String.format("Nozzle angle: %s", (nzang));
+//        System.out.println(testString) ;
+//        keyEvent.consume();
+//        int testXCor = this.activeTankModel.getX();
+//        int testYCor = this.activeTankModel.getY();
+//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
+//        System.out.println(testString);
+
+        }
+
+    public void onFireButton() {
+        shootProjectile();
+        swapTanks();
+    }
+
+    public void updateHealthDisplay() {
+        double health = this.activeTankModel.getHealth();
+        String healthString = String.format("Health: %s", (Double.toString(health)));
+        TankHealth.setText(healthString);
+    }
+
+    public void swapTanks() {
+        System.out.println("my turn");
+        if (this.activeTankIndex == 0) {
+            this.activeTankModel = this.tankModels.get(1);
+            this.activeTankView = this.tankViews.get(1);
+            this.activeTankIndex = 1;
+        } else {
+            this.activeTankModel = this.tankModels.get(0);
+            this.activeTankView = this.tankViews.get(0);
+            this.activeTankIndex = 0;
+        }
+        updateFuelDisplay();
+        updateHealthDisplay();
+    }
+
+    public void shootProjectile() {
+        System.out.println("pew!");
+        for (Node node : this.ProjectileGroup.getChildren()) {
+            System.out.println("there's a projectile node!");
+            this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
+                    10, 100);
+            this.projectileView = (ProjectileView) node;
+            this.projectileView.setProjectileModel(this.projectileModel);
+            this.projectileView.update();
+            //create projectile
+            //gravity
+            //collide with terrain
+            //collide with tanks?
+            //blow up stuff
+            System.out.println("boom");
+        }
+        animateProjectile();
+        resolveProjectile();
+    }
+
+    public void updateAnimation() {
+        this.projectileModel.updateCoordinates();
+    }
+
+    public void animateProjectile() {
+        /*
+        TimerTask timerTask = new TimerTask() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        if (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
+                            updateAnimation();
+                            //projectileModel.updateCoordinates();
+                            //draw it somehow
+                        }
+                        else {
+                            cancel();
+                        }
+                        }
+                    });
+                }
+
+            };
+
+        Timer timer = new java.util.Timer();
+        // long frameTimeInMillisceonds = (long) (1000.0 / FRAMES_PER_SECOND)
+        //
+
+        timer.schedule(timerTask, 0, (long) 1000);
+        */
+
+        while (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
+            updateAnimation();
+            System.out.println("shooting");
+            try{
+                Thread.sleep((long) 100);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            //draw it somehow
+            this.ProjectileGroup.getChildren().add(projectileView);
+        }
 
     }
+
+    public void resolveProjectile() {
+
+        for (TankModel tank : this.tankModels) {
+            if (Math.abs(tank.getX()-this.terrainModel.getYPos( this.projectileModel.getPosX() )) <
+                    this.projectileModel.getBlastRadius()) {
+                tank.takeDamage(this.projectileModel.getDamage(
+                        Math.abs(tank.getX()-this.terrainModel.getYPos( this.projectileModel.getPosX() ))));
+            }
+
+        }
+        this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int) this.projectileModel.getBlastRadius());
+        this.terrainView.update();
+    }
 }
+

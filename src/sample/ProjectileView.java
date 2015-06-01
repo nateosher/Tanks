@@ -16,8 +16,11 @@ public class ProjectileView extends Group {
     @FXML private int projectileRadius;
 
     public ProjectileView () {
-        this.projectileModel = new ProjectileModel();
-        this.update();
+
+    }
+
+    public void setProjectileModel(ProjectileModel projectileModel) {
+        this.projectileModel = projectileModel;
     }
 
     public ProjectileModel getProjectileModel() { return this.projectileModel; }
