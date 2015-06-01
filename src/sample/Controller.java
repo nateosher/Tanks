@@ -130,6 +130,16 @@ public class Controller implements EventHandler<KeyEvent> {
         } else if (code == KeyCode.T) {
             this.terrainView.destroyChunk(500, 50);
             this.terrainView.destroyChunk(750, 20);
+            int team = 0;
+            for (Node node : this.TankGroup.getChildren()) {
+                TankView tankView = (TankView) node;
+                tankView.getTank().takeHit(500, 50, 0);
+                tankView.getTank().takeHit(750, 20, 0);
+                tankView.getBody().setLayoutY(tankView.getTank().getY());
+                tankView.update();
+                team++;
+            }
+            keyEvent.consume();
 
         } else if (code == KeyCode.F) {
             //this.activeTankModel.getX(),this.activeTankModel.getY(),angle,intensity);

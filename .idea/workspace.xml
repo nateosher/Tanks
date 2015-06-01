@@ -130,8 +130,13 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="123" column="32" selection-start-line="123" selection-start-column="32" selection-end-line="123" selection-end-column="32" />
+=======
+            <state vertical-scroll-proportion="-15.555555">
+              <caret line="119" column="55" selection-start-line="119" selection-start-column="55" selection-end-line="119" selection-end-column="55" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7438#7439#0" expanded="true" />
@@ -141,9 +146,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TankModel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TankModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/TankModel.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
               <folding>
@@ -152,6 +158,18 @@
                 <element signature="e#1599#1600#0" expanded="true" />
                 <element signature="e#1628#1629#0" expanded="true" />
                 <element signature="e#1661#1662#0" expanded="true" />
+=======
+            <state vertical-scroll-proportion="0.5073892">
+              <caret line="93" column="55" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1469#1470#0" expanded="true" />
+                <element signature="e#1503#1504#0" expanded="true" />
+                <element signature="e#1532#1533#0" expanded="true" />
+                <element signature="e#1565#1566#0" expanded="true" />
+                <element signature="e#2820#2821#0" expanded="true" />
+                <element signature="e#2857#2858#0" expanded="true" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
               </folding>
             </state>
           </provider>
@@ -207,13 +225,21 @@
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/TankView.java" />
         <option value="$PROJECT_DIR$/src/sample/View.java" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/src/sample/TerrainModel.java" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
         <option value="$PROJECT_DIR$/src/sample/TerrainView.java" />
         <option value="$PROJECT_DIR$/src/sample/ProjectileView.java" />
         <option value="$PROJECT_DIR$/src/sample/TerrainModel.java" />
         <option value="$PROJECT_DIR$/src/sample/ProjectileModel.java" />
         <option value="$PROJECT_DIR$/src/sample/TankModel.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
+=======
+        <option value="$PROJECT_DIR$/src/sample/TankModel.java" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
       </list>
     </option>
   </component>
@@ -633,16 +659,27 @@
       <workItem from="1432868487888" duration="122000" />
       <workItem from="1432868659567" duration="4483000" />
       <workItem from="1432913573418" duration="3830000" />
+<<<<<<< HEAD
       <workItem from="1433087106468" duration="23517000" />
       <workItem from="1433113503726" duration="10649000" />
+=======
+      <workItem from="1433087106468" duration="25431000" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="61387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="22" width="1484" height="970" extended-state="0" />
+=======
+    <option name="totallyTimeSpent" value="52652000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="136" y="22" width="1484" height="970" extended-state="0" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -651,8 +688,12 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16846362" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29300776" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -824,10 +865,19 @@
           <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
+<<<<<<< HEAD
             <element signature="e#1565#1566#0" expanded="true" />
             <element signature="e#1599#1600#0" expanded="true" />
             <element signature="e#1628#1629#0" expanded="true" />
             <element signature="e#1661#1662#0" expanded="true" />
+=======
+            <element signature="e#1469#1470#0" expanded="true" />
+            <element signature="e#1503#1504#0" expanded="true" />
+            <element signature="e#1532#1533#0" expanded="true" />
+            <element signature="e#1565#1566#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2857#2858#0" expanded="true" />
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
           </folding>
         </state>
       </provider>
@@ -1170,6 +1220,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/TerrainModel.java">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
@@ -1194,6 +1245,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/TankView.java">
+=======
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="51" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
@@ -1213,6 +1266,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -1221,6 +1275,39 @@
         <state vertical-scroll-proportion="0.46551725">
           <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/sample/TankView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.555555">
+          <caret line="119" column="55" selection-start-line="119" selection-start-column="55" selection-end-line="119" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/TankModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5073892">
+          <caret line="93" column="55" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1469#1470#0" expanded="true" />
+            <element signature="e#1503#1504#0" expanded="true" />
+            <element signature="e#1532#1533#0" expanded="true" />
+            <element signature="e#1565#1566#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2857#2858#0" expanded="true" />
+          </folding>
+>>>>>>> 3d60a3e94eee66880c1abc2eafe186cbf7cb7951
         </state>
       </provider>
     </entry>

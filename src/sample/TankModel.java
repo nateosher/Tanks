@@ -21,6 +21,7 @@ public class TankModel {
     private int power;
     private double health;
     private int fuel;
+    private int health;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -30,8 +31,8 @@ public class TankModel {
     final int DEFAULT_Y = 0;
     final int DEFAULT_MOVE = 5;
     final int DEFAULT_POWER = 50;
-    final double DEFAULT_HEALTH = 90;
     final int DEFAULT_FUEL = 100;
+    final int DEFAULT_HEALTH = 100;
 
     public TankModel(int team){
         this.randomNumberGenerator = new Random();
@@ -72,7 +73,7 @@ public class TankModel {
 
     public void setPositionByX (int newX) {
         this.xCor = newX;
-        this.yCor = this.terrainModel.getYPos(this.xCor) - 15; }
+        this.yCor = this.terrainModel.getYPos(this.xCor + 15) - 15; }
 
     public int getX() { return this.xCor; }
 
@@ -101,6 +102,24 @@ public class TankModel {
             this.xCor += 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
             this.fuel--;
+
         }
+    }
+
+    // call on each tank every time a projectile is fired!
+    public void takeHit(int projXCor, int radius, int damage) {
+        if (Math.abs(this.getX()-projXCor) <= radius) {
+            drop();
+            loseHealth(damage);
+        }
+    }
+
+    private void loseHealth(int damage) {
+        this.health -= damage;
+    }
+
+    private void drop() {
+        int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
+        this.setY(droppedY);
     }
 }
