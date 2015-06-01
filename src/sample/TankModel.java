@@ -12,6 +12,7 @@ public class TankModel {
     @FXML private int height;
     @FXML private Color tankCol;
     @FXML private Color borderColor;
+
     private Random randomNumberGenerator;
     private int startXCor;
     private int xCor;
@@ -19,6 +20,7 @@ public class TankModel {
     private TerrainModel terrainModel;
     private int power;
     private double health;
+    private int fuel;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -29,6 +31,7 @@ public class TankModel {
     final int DEFAULT_MOVE = 5;
     final int DEFAULT_POWER = 50;
     final double DEFAULT_HEALTH = 90;
+    final int DEFAULT_FUEL = 100;
 
     public TankModel(int team){
         this.randomNumberGenerator = new Random();
@@ -42,6 +45,7 @@ public class TankModel {
         this.yCor = DEFAULT_Y;
         this.power = DEFAULT_POWER;
         this.health = DEFAULT_HEALTH;
+        this.fuel = DEFAULT_FUEL;
     }
 
     public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
@@ -76,20 +80,27 @@ public class TankModel {
 
     public int getY() { return this.yCor; }
 
+    public double getHealth() {return this.health;}
+
+    public int getFuel() {return this.fuel;}
+
     public void takeDamage(double damage) {
         System.out.println("ow");
-        this.health -= damage; }
+        this.health -= damage;
+    }
 
     public void moveLeft() {
         if (this.xCor > 5) {
             this.xCor -= 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
+            this.fuel--;
         }
     }
     public void moveRight() {
         if (this.xCor < 1170) {
             this.xCor += 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
+            this.fuel--;
         }
     }
 }

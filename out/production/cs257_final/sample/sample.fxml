@@ -11,8 +11,19 @@
 <?import sample.TankView?>
 
 <?import sample.ProjectileView?>
+<?import javafx.scene.control.Slider?>
 <AnchorPane fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
+
+    <Button fx:id="Fire" LayoutX="1000" AnchorPane.topAnchor = "15" text="Fire!" onAction="#onFireButton"/>
+
+    <Label fx:id="Fuel" LayoutX="200" AnchorPane.topAnchor="15" text="Fuel Remaining: "/>
+
+    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: "/>
+    
+    <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: "/>
+
+    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: "/>
 
 
     <Group fx:id="TerrainGroup" AnchorPane.bottomAnchor="0">

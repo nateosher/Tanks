@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.javafx.binding.StringFormatter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
@@ -20,6 +21,9 @@ import java.util.*;
 
 
 public class Controller implements EventHandler<KeyEvent> {
+    @FXML private Label TankHealth;
+    @FXML private Label Fuel;
+
     public Group TerrainGroup;
     private TerrainModel terrainModel;
     private TerrainView terrainView;
@@ -34,6 +38,8 @@ public class Controller implements EventHandler<KeyEvent> {
     private Random randomNumberGenerator;
     private double randomFactor;
     private ProjectileModel projectileModel;
+
+
 
     public Controller() {
     }
@@ -92,21 +98,30 @@ public class Controller implements EventHandler<KeyEvent> {
         return projectile;
     }
 
+    public void updateFuelDisplay() {
+        this.activeTankModel.getFuel();
+        int fuel = this.activeTankModel.getFuel();
+        String fuelString = String.format("Fuel Remaining: %s", (fuel));
+        this.Fuel.setText(fuelString);
+    }
+
     @Override
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
         // System.out.println("Got here");
-        if (code == KeyCode.LEFT || code == KeyCode.A) {
+        if ((code == KeyCode.LEFT || code == KeyCode.A) && this.activeTankModel.getFuel()>0) {
             //if (this.tankView.getTank().getX() + offset - 5) >= 0)
             this.activeTankModel.moveLeft();
+            updateFuelDisplay();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
-        } else if (code == KeyCode.RIGHT || code == KeyCode.D) {
+        } else if ((code == KeyCode.RIGHT || code == KeyCode.D) && this.activeTankModel.getFuel()>0) {
             // move tank right
             // System.out.println("Right");
             this.activeTankModel.moveRight();
+            updateFuelDisplay();
             this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
             this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
@@ -140,6 +155,17 @@ public class Controller implements EventHandler<KeyEvent> {
 
     }
 
+    public void onFireButton() {
+        shootProjectile();
+        swapTanks();
+    }
+
+    public void updateHealthDisplay() {
+        double health = this.activeTankModel.getHealth();
+        String healthString = String.format("Health: %s", (Double.toString(health)));
+        TankHealth.setText(healthString);
+    }
+
     public void swapTanks() {
         System.out.println("my turn");
         if (this.activeTankIndex == 0) {
@@ -151,6 +177,8 @@ public class Controller implements EventHandler<KeyEvent> {
             this.activeTankView = this.tankViews.get(0);
             this.activeTankIndex = 0;
         }
+        updateFuelDisplay();
+        updateHealthDisplay();
     }
 
     public void shootProjectile() {
@@ -158,7 +186,7 @@ public class Controller implements EventHandler<KeyEvent> {
         for (Node node : this.ProjectileGroup.getChildren()) {
             System.out.println("there's a projectile node!");
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    90, 30);
+                    10, 100);
             this.projectileView = (ProjectileView) node;
             this.projectileView.setProjectileModel(this.projectileModel);
             this.projectileView.update();
@@ -173,6 +201,10 @@ public class Controller implements EventHandler<KeyEvent> {
         resolveProjectile();
     }
 
+    public void updateAnimation() {
+        this.projectileModel.updateCoordinates();
+    }
+
     public void animateProjectile() {
         /*
         TimerTask timerTask = new TimerTask() {
@@ -180,11 +212,12 @@ public class Controller implements EventHandler<KeyEvent> {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         if (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
-                            projectileModel.updateCoordinates();
+                            updateAnimation();
+                            //projectileModel.updateCoordinates();
                             //draw it somehow
                         }
                         else {
-                            ;
+                            cancel();
                         }
                         }
                     });
@@ -195,10 +228,12 @@ public class Controller implements EventHandler<KeyEvent> {
         Timer timer = new java.util.Timer();
         // long frameTimeInMillisceonds = (long) (1000.0 / FRAMES_PER_SECOND)
         //
-        timer.schedule(timerTask, 0, (long) 100);
+
+        timer.schedule(timerTask, 0, (long) 1000);
         */
+
         while (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
-            projectileModel.updateCoordinates();
+            updateAnimation();
             System.out.println("shooting");
             try{
                 Thread.sleep((long) 100);
@@ -207,6 +242,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 e.printStackTrace();
             }
             //draw it somehow
+            this.ProjectileGroup.getChildren().add(projectileView);
         }
 
     }
