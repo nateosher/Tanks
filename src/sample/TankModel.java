@@ -76,7 +76,9 @@ public class TankModel {
 
     public int getY() { return this.yCor; }
 
-    public void takeDamage(double damage) { this.health -= damage; }
+    public void takeDamage(double damage) {
+        System.out.println("ow");
+        this.health -= damage; }
 
     public void moveLeft() {
         if (this.xCor > 5) {

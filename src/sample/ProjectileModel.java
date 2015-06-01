@@ -22,9 +22,10 @@ public class ProjectileModel {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.vel_x = intensity*Math.cos((angle*Math.PI)/180);
-        this.vel_y = intensity*Math.sin((angle*Math.PI)/180);
+        this.vel_y = intensity*Math.sin((angle * Math.PI) / 180);
         this.blast_radius = 30;
         this.damage = 30;
+        System.out.println("Launched at " + this.pos_x + ", " +this.pos_y);
     }
 
     public int getPosX() {
@@ -62,6 +63,7 @@ public class ProjectileModel {
     public void updateCoordinates() {
         updatePosX();
         updatePosY();
+        System.out.println("Moved to " + this.pos_x + ", " + this.pos_y);
     }
 
     public void updatePosX() {
@@ -69,7 +71,7 @@ public class ProjectileModel {
     }
 
     public void updatePosY() {
-        this.pos_y += this.vel_y;
+        this.pos_y += this.vel_y - 60;
     }
 
     public double getDamage(int distance) {

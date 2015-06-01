@@ -158,7 +158,7 @@ public class Controller implements EventHandler<KeyEvent> {
         for (Node node : this.ProjectileGroup.getChildren()) {
             System.out.println("there's a projectile node!");
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    90, 4);
+                    90, 30);
             this.projectileView = (ProjectileView) node;
             this.projectileView.setProjectileModel(this.projectileModel);
             this.projectileView.update();
@@ -174,6 +174,7 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void animateProjectile() {
+        /*
         TimerTask timerTask = new TimerTask() {
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -195,6 +196,19 @@ public class Controller implements EventHandler<KeyEvent> {
         // long frameTimeInMillisceonds = (long) (1000.0 / FRAMES_PER_SECOND)
         //
         timer.schedule(timerTask, 0, (long) 100);
+        */
+        while (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
+            projectileModel.updateCoordinates();
+            System.out.println("shooting");
+            try{
+                Thread.sleep((long) 100);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            //draw it somehow
+        }
+
     }
 
     public void resolveProjectile() {
@@ -208,6 +222,7 @@ public class Controller implements EventHandler<KeyEvent> {
 
         }
         this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int) this.projectileModel.getBlastRadius());
+        this.terrainView.update();
     }
 }
 
