@@ -55,6 +55,7 @@ public class Controller implements EventHandler<KeyEvent> {
             this.terrainView.setTerrainModel(this.terrainModel);
             this.terrainView.update();
         }
+
         //this.tankModel = new TankModel();
         //this.tankView = new TankView();
         //this.tankView.setTankModel(this.tankModel);
@@ -89,15 +90,6 @@ public class Controller implements EventHandler<KeyEvent> {
         this.activeTankIndex = 1;
     }
 
-    public ProjectileView initializeProjectile(TankModel tank) {
-        ProjectileView projectile = new ProjectileView();
-        projectile.getProjectileModel().setPosX(tank.getX());
-        projectile.getProjectileModel().setPosY(tank.getY());
-        projectile.getProjectileModel().setVelX((int) (Math.cos((double) tank.getPower())));
-        projectile.getProjectileModel().setVelY((int) (Math.sin((double) tank.getPower())));
-        return projectile;
-    }
-
     public void updateFuelDisplay() {
         this.activeTankModel.getFuel();
         int fuel = this.activeTankModel.getFuel();
@@ -112,18 +104,18 @@ public class Controller implements EventHandler<KeyEvent> {
         if ((code == KeyCode.LEFT || code == KeyCode.A) && this.activeTankModel.getFuel()>0) {
             //if (this.tankView.getTank().getX() + offset - 5) >= 0)
             this.activeTankModel.moveLeft();
+            this.activeTankView.update();
             updateFuelDisplay();
-            this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
-            this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
             keyEvent.consume();
 
         } else if ((code == KeyCode.RIGHT || code == KeyCode.D) && this.activeTankModel.getFuel()>0) {
             // move tank right
             // System.out.println("Right");
+
             this.activeTankModel.moveRight();
+            this.activeTankView.update();
             updateFuelDisplay();
-            this.activeTankView.getBody().setLayoutX(this.activeTankModel.getX());
-            this.activeTankView.getBody().setLayoutY(this.activeTankModel.getY());
+
             keyEvent.consume();
 
             // Just a test to demonstrate destructible terrain
@@ -177,7 +169,6 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void swapTanks() {
-        System.out.println("my turn");
         if (this.activeTankIndex == 0) {
             this.activeTankModel = this.tankModels.get(1);
             this.activeTankView = this.tankViews.get(1);
@@ -194,18 +185,11 @@ public class Controller implements EventHandler<KeyEvent> {
     public void shootProjectile() {
         System.out.println("pew!");
         for (Node node : this.ProjectileGroup.getChildren()) {
-            System.out.println("there's a projectile node!");
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    10, 100);
+                    80, 9);
             this.projectileView = (ProjectileView) node;
             this.projectileView.setProjectileModel(this.projectileModel);
             this.projectileView.update();
-            //create projectile
-            //gravity
-            //collide with terrain
-            //collide with tanks?
-            //blow up stuff
-            System.out.println("boom");
         }
         animateProjectile();
         resolveProjectile();
@@ -213,47 +197,28 @@ public class Controller implements EventHandler<KeyEvent> {
 
     public void updateAnimation() {
         this.projectileModel.updateCoordinates();
+        this.projectileView.update();
+        System.out.println("wussup");
     }
 
     public void animateProjectile() {
-        /*
-        TimerTask timerTask = new TimerTask() {
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        if (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
-                            updateAnimation();
-                            //projectileModel.updateCoordinates();
-                            //draw it somehow
-                        }
-                        else {
-                            cancel();
-                        }
-                        }
-                    });
-                }
 
-            };
-
-        Timer timer = new java.util.Timer();
-        // long frameTimeInMillisceonds = (long) (1000.0 / FRAMES_PER_SECOND)
-        //
-
-        timer.schedule(timerTask, 0, (long) 1000);
-        */
-
-        while (projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())) {
+        while (projectileModel.getPosY()<terrainModel.getYPos(projectileModel.getPosX())) {
             updateAnimation();
             System.out.println("shooting");
             try{
-                Thread.sleep((long) 100);
+                Thread.sleep((long) 500);
+                System.out.println("right hurr");
+                System.out.println(projectileModel.getPosY() + "and " + terrainModel.getYPos(projectileModel.getPosX()));
             }
             catch(InterruptedException e){
                 e.printStackTrace();
             }
             //draw it somehow
-            this.ProjectileGroup.getChildren().add(projectileView);
+            //this.ProjectileGroup.getChildren().add(projectileView);
         }
+        System.out.println("KABLAM");
+        System.out.println (projectileModel.getPosY() + "and " + terrainModel.getYPos(projectileModel.getPosX()));
 
     }
 

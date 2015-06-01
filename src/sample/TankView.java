@@ -39,7 +39,9 @@ public class TankView extends Group{
 
     public void update(){
         this.getChildren().clear();
-        this.getChildren().add(tankBody);
+        this.tankBody.setLayoutX(this.tank.getX());
+        this.tankBody.setLayoutY(this.tank.getY());
+        this.getChildren().add(this.tankBody);
     }
 
 }
