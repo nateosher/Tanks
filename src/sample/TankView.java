@@ -45,9 +45,9 @@ public class TankView extends Group{
         this.tankNozzle.setLayoutX(this.tank.getX());
         this.tankNozzle.setLayoutY(this.tank.getY());
 
-        this.rPos = new Rotate(-5, this.tankNozzle.getLayoutX(), this.
+        this.rPos = new Rotate(-1, this.tankNozzle.getLayoutX(), this.
                 tankNozzle.getLayoutY());
-        this.rNeg = new Rotate(5, this.tankNozzle.getLayoutX(), this.
+        this.rNeg = new Rotate(1, this.tankNozzle.getLayoutX(), this.
                 tankNozzle.getLayoutY());
     }
 

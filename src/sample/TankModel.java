@@ -110,6 +110,8 @@ public class TankModel {
 
     public int getFuel() {return this.fuel;}
 
+    public void setFuel(int newFuel) { this.fuel = newFuel; }
+
     public void takeDamage(double damage) {
         System.out.println("ow");
         this.health -= damage;

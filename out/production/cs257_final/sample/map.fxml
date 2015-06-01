@@ -1,0 +1,50 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import sample.TerrainView?>
+<?import sample.TankView?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.Group?>
+<?import sample.TankView?>
+
+<?import sample.ProjectileView?>
+<?import javafx.scene.control.Slider?>
+
+<AnchorPane fx:controller="sample.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <Button fx:id="Fire" LayoutX="1000" AnchorPane.topAnchor = "15" text="Fire!" onAction="#onFireButton"/>
+
+    <Label fx:id="Fuel" LayoutX="200" AnchorPane.topAnchor="15" text="Fuel Remaining: 100"/>
+
+    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: 0"/>
+
+    <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: "/>
+
+    <Slider fx:id="ShotSlider" LayoutX="600" AnchorPane.topAnchor="50" min="0" max="600" value="100"/>
+
+    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: "/>
+
+
+    <Group fx:id="TerrainGroup" AnchorPane.bottomAnchor="0">
+        <TerrainView width="1200"
+                     height="800"
+                     terrainColor="darkgreen"
+                />
+    </Group>
+
+    <Group fx:id="TankGroup">
+        <TankView />
+        <TankView />
+
+    </Group>
+
+    <Group fx:id="ProjectileGroup">
+        <ProjectileView />
+
+    </Group>
+
+</AnchorPane>
