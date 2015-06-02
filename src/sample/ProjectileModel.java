@@ -12,6 +12,7 @@ public class ProjectileModel {
     private double vel_y;
     private double blast_radius;
     private double damage;
+    private TerrainModel terrainModel;
 
     /* Model of a projectile, including its initial x and y velocities,
     * x and y positions, damage, and blast radius.
@@ -25,13 +26,15 @@ public class ProjectileModel {
         this.damage = 30;
     }
 
-    public int getPosX() {
-        return this.pos_x;
-    }
+    public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
 
-    public int getPosY() {
-        return this.pos_y;
-    }
+    public int getPosX() { return this.pos_x; }
+
+    public int getPosY() { return this.pos_y; }
+
+    public void setPosX(int new_pos_x) {this.pos_x = new_pos_x;}
+
+    public void setPosY(int new_pos_y) {this.pos_y = new_pos_y;}
 
     public double getVelX() {
         return this.vel_x;
@@ -53,6 +56,24 @@ public class ProjectileModel {
     public void updateY() {
         this.pos_y += this.vel_y;
         this.vel_y += 9.8;
+    }
+
+    public int findImpactPointX() {
+        double xToYRatio = -(this.vel_x/this.vel_y);
+        double yToXRatio = -(this.vel_y/this.vel_x);
+
+        int i = 0;
+        boolean projectileIsUnderground = true;
+        int undergroundX = this.pos_x;
+        while (projectileIsUnderground) {
+            undergroundX = (int) (this.pos_x+i*xToYRatio);
+            i++;
+            if((this.pos_y+i*yToXRatio) < this.terrainModel.getYPos((int)(this.pos_x+i*xToYRatio))){
+                projectileIsUnderground=false;
+            }
+        }
+        return undergroundX;
+
     }
 
     /*
