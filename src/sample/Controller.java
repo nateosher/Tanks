@@ -50,7 +50,8 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void initialize() {
-
+        /* Draws the actual terrain, sets the positions of the tanks,
+         * and draws them in those positions */
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
 
@@ -60,12 +61,6 @@ public class Controller implements EventHandler<KeyEvent> {
             this.terrainView.setTerrainModel(this.terrainModel);
             this.terrainView.update();
         }
-
-        //this.tankModel = new TankModel();
-        //this.tankView = new TankView();
-        //this.tankView.setTankModel(this.tankModel);
-        //this.tankView.getTank().setTerrainModel(this.terrainModel);
-        //this.tankModel = this.tankView.getTank();
 
         this.tankModels = new ArrayList<TankModel>();
         this.tankViews = new ArrayList<TankView>();
@@ -197,21 +192,7 @@ public class Controller implements EventHandler<KeyEvent> {
             updateAngleDisplay();
     }
         updateIntensityDisplay();
-//        int testXCor = this.activeTankModel.getX();
-//        int testYCor = this.activeTankModel.getY();
-//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
-//        System.out.println(testString) ;
-
-//        int nzang = this.activeTankModel.getNozzleAngle();
-//        String testString = String.format("Nozzle angle: %s", (nzang));
-//        System.out.println(testString) ;
-//        keyEvent.consume();
-//        int testXCor = this.activeTankModel.getX();
-//        int testYCor = this.activeTankModel.getY();
-//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
-//        System.out.println(testString);
-
-        }
+    }
 
     public void onFireButton() {
         shootProjectile();
@@ -259,6 +240,10 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void shootProjectile() {
+        /* Creates and draws a new projectile in the location of the tank that
+        * fired and  animates it based on the angle and initial power of the
+        * shot
+        */
         System.out.println("pew!");
         this.projectileExploded= false;
         for (Node node : this.ProjectileGroup.getChildren()) {
@@ -272,11 +257,17 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void updateAnimation() {
+        /* Updates the coordinates of the projectile based on the given path
+         * and re-draws it based on this
+         */
         this.projectileModel.updateCoordinates();
         this.projectileView.update();
     }
 
     public void animateProjectile() {
+        /* Animates a given projectile. A projectile "explodes" if it has left
+         * the screen or if it has collided with the ground
+         */
         TimerTask timerTask = new TimerTask() {
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -313,7 +304,13 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void resolveProjectile() {
-
+        /* When a projectile explodes, determines whether or not either tank
+         * was in the blast radius. If so, it deals damage to the tank
+         * based on its distance from the explosion.
+         *
+         * Regardless of whether or not a tank is hit, destroys a chunk of the
+         * terrain and removes the projectile from the window.
+         */
         for (TankModel tank : this.tankModels) {
             if (Math.abs(tank.getX()-this.terrainModel.getYPos(
                     this.projectileModel.getPosX() )) <
