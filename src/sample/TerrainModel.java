@@ -1,14 +1,17 @@
 /**
+ * TerrainModel
+ *
+ * Nate Osher, Ben Wedin, Aidan Halloway-Bidwell, Raven Pillmann
+ *
+ * A Model class for the destructible terrain
+ *
+ * Based On:
  * DiceModel.java
  * Jeff Ondich, 10 Nov 2014
  *
- * A Model class for an MVC demo using JavaFX.
  */
 
 package sample;
-import java.util.ArrayList;
-import java.util.List;
-
 
 import java.util.Random;
 

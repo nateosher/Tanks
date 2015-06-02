@@ -18,19 +18,23 @@ public class TerrainView extends Group {
     @FXML private Color terrainColor;
     @FXML private int width;
     @FXML private int height;
-    //private int x_left_shift;
 
     final int DEFAULT_WIDTH = 1200;
     final int DEFAULT_HEIGHT = 800;
+    final Color DEFAULT_COLOR = Color.DARKGREEN;
 
     public TerrainView() {
-        update();
+        this.terrainColor = DEFAULT_COLOR;
+        this.width = DEFAULT_WIDTH;
+        this.height = DEFAULT_HEIGHT;
     }
 
-    public void setTerrainModel(TerrainModel terrainModel) { this.terrainModel = terrainModel;}
+    public void setTerrainModel(TerrainModel terrainModel) {
+        this.terrainModel = terrainModel;
+    }
 
     public int getWidth() {
-        return this.width;
+        return width;
     }
 
     public void setWidth(int width) {
@@ -44,7 +48,6 @@ public class TerrainView extends Group {
     public void setHeight(int height) {
         this.height = height;
     }
-
 
     public Color getTerrainColor() {
         return this.terrainColor;

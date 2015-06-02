@@ -23,8 +23,6 @@ public class TankView extends Group{
 
     public TankView(){
 
-        // this.terrainModel = terrainModel;
-
     }
 
     public void setTankModel(TankModel tankModel) {
