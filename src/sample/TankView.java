@@ -15,7 +15,6 @@ public class TankView extends Group{
     private Rotate rPos;
     private Rotate rNeg;
 
-
     public TankView(){
 
     }

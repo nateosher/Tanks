@@ -23,7 +23,6 @@ public class ProjectileModel {
         this.vel_y = -intensity*Math.sin((angle * Math.PI) / 180);
         this.blast_radius = 30;
         this.damage = 30;
-        System.out.println("Launched at " + this.pos_x + ", " +this.pos_y);
     }
 
     public int getPosX() {
@@ -45,7 +44,6 @@ public class ProjectileModel {
     public void updateCoordinates() {
         updateX();
         updateY();
-        System.out.println("Moved to " + this.pos_x + ", " + this.pos_y);
     }
 
     public void updateX() {
@@ -55,7 +53,7 @@ public class ProjectileModel {
     public void updateY() {
         this.pos_y += this.vel_y;
         this.vel_y += 9.8;
-        }
+    }
 
     /*
     * Calculates the damage a tank takes based on it's distance from a hit.
@@ -68,6 +66,15 @@ public class ProjectileModel {
 
     public double getBlastRadius() {
         return this.blast_radius;
+    }
+
+    /* Returns true if the projectile is out of the bounds of the screen,
+    * and false otherwise.
+    */
+    public boolean outOfScreen() {
+        return (this.getPosX()<0 ||
+                this.getPosX()>1199 ||
+                this.getPosY()>820);
     }
 
 }

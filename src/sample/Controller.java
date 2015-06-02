@@ -257,13 +257,9 @@ public class Controller implements EventHandler<KeyEvent> {
                         else {
                         updateAnimation();
                         if(!projectileView.outOfScreen() && !projectileExploded
-                            && projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())
-                                ) {
+                            && projectileModel.getPosY()>terrainModel
+                                .getYPos(projectileModel.getPosX())) {
                             projectileExploded = true;
-                            System.out.println(projectileModel.getPosY() + "and "
-                                    + terrainModel.getYPos(
-                                    projectileModel.getPosX()));
-                            System.out.println("KABLAM");
                             resolveProjectile();
                             cancel();
                         }

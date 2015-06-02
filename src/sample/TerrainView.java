@@ -1,6 +1,5 @@
 /**
- * FourSidedDie.java
- * Jeff Ondich, 10 Nov 2014
+ * TerrainView.java
  *
  * A View class for an MVC demo using JavaFX.
  */
