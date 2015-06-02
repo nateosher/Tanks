@@ -17,16 +17,17 @@
 
     <Button fx:id="Fire" LayoutX="1000" AnchorPane.topAnchor = "15" text="Fire!" onAction="#onFireButton"/>
 
-    <Label fx:id="Fuel" LayoutX="200" AnchorPane.topAnchor="15" text="Fuel Remaining: "/>
+    <Label fx:id="Fuel" LayoutX="200" AnchorPane.topAnchor="15" text="Fuel Remaining: 100"/>
 
-    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: "/>
+    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: 0"/>
 
-    <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: "/>
+    <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: 50"/>
 
     <Slider fx:id="ShotSlider" LayoutX = "600" AnchorPane.topAnchor="50" min="0" max="100" value="50"/>
 
-    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: "/>
+    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: 100"/>
 
+    <Label fx:id="GaveOver" LayoutX="600" AnchorPane.topAnchor="400" text=""/>
 
     <Group fx:id="TerrainGroup" AnchorPane.bottomAnchor="0">
         <TerrainView/>
@@ -42,5 +43,8 @@
         <ProjectileView />
 
     </Group>
+
+    <Label fx:id="Instructions" LayoutX = "150" AnchorPane.bottomAnchor="30"
+           text = "Left/Right arrows move your tank, Up/Down changes the angle. Press Fire! or F to fire a projectile, and move the slider to change shot intensity!"/>
 
 </AnchorPane>

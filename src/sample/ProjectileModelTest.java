@@ -62,4 +62,11 @@ public class ProjectileModelTest {
         org.junit.Assert.assertEquals("fail - getBlastRadius() failed to return " +
                 "30", expected, actual, 0.0);
     }
+
+    @Test
+    public void testOutOfScreenShouldReturnFalse() throws Exception {
+        ProjectileModel projectileModel = new ProjectileModel(-30, 40, 0, 1);
+        org.junit.Assert.assertTrue("fail - outOfScreen() failed to return " +
+                "true", projectileModel.outOfScreen());
+    }
 }

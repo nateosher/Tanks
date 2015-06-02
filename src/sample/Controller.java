@@ -18,6 +18,7 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label Angle;
     @FXML private Label ShotIntensity;
     @FXML private Slider ShotSlider;
+    @FXML private Label GameOver;
 
     public Group TerrainGroup;
     private TerrainModel terrainModel;
@@ -206,13 +207,14 @@ public class Controller implements EventHandler<KeyEvent> {
             this.activeTankIndex = 0;
         }
         isGameOver();
-        updateFuelDisplay();
         updateHealthDisplay();
+        updateFuelDisplay();
     }
 
     private void isGameOver() {
         if (this.activeTankModel.getHealth()<=0) {
-            System.out.println("GAME OVER BLARGH");
+            System.out.println("Game Over");
+            //this.GameOver.setText("GAME OVER!!!");
         }
     }
 
@@ -249,14 +251,14 @@ public class Controller implements EventHandler<KeyEvent> {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        if(projectileView.outOfScreen()){
+                        if(projectileView.getProjectileModel().outOfScreen()){
                             projectileView.destroyProjectile();
                             projectileExploded=true;
                             cancel();
                         }
                         else {
                         updateAnimation();
-                        if(!projectileView.outOfScreen() && !projectileExploded
+                        if(!projectileView.getProjectileModel().outOfScreen() && !projectileExploded
                             && projectileModel.getPosY()>terrainModel
                                 .getYPos(projectileModel.getPosX())) {
                             projectileExploded = true;

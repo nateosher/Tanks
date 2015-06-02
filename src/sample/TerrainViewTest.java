@@ -1,3 +1,8 @@
+/**
+ * Created by Nate Osher, Ben Wedin, Aidan Halloway-Bidwell, Raven Pillmann
+ * on 6/2/15.
+ */
+
 package sample;
 
 import org.junit.Test;
@@ -5,10 +10,6 @@ import javafx.scene.paint.Color;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Nate Osher, Ben Wedin, Aidan Halloway-Bidwell, Raven Pillmann
- * on 6/2/15.
- */
 public class TerrainViewTest {
 
     @Test

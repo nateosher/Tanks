@@ -33,6 +33,10 @@ public class ProjectileView extends Group {
         this.projectileBody.setFill(this.projectileColor);
     }
 
+    public ProjectileModel getProjectileModel(){
+        return this.projectileModel;
+    }
+
     /*
     * Updates the position of the projectileView, which is used during animation.
     */
