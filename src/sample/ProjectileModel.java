@@ -81,7 +81,4 @@ public class ProjectileModel {
 
     public double getBlastRadius() { return this.blast_radius;}
 
-    public void updateVelYWithTime(int sec) {
-        this.vel_y = -9.8 * sec + this.vel_y;
-    }
 }

@@ -21,8 +21,6 @@ public class ProjectileView extends Group {
 
     public ProjectileView () {
         this.projectileColor = DEFAULT_COLOR;
-
-
     }
 
     public void createNewProjectile(ProjectileModel projectileModel) {
@@ -35,8 +33,6 @@ public class ProjectileView extends Group {
         this.projectileBody.setFill(this.projectileColor);
     }
 
-    public ProjectileModel getProjectileModel() { return this.projectileModel; }
-
     public void update() {
         this.getChildren().clear();
 
@@ -46,10 +42,8 @@ public class ProjectileView extends Group {
     }
 
     public boolean outOfScreen() {
-        if (this.projectileModel.getPosX()<0 || this.projectileModel.getPosX()>1199) {
-            return true;
-        }
-        return false;
+        return (this.projectileModel.getPosX()<0 ||
+                this.projectileModel.getPosX()>1199);
     }
 
     public void destroyProjectile() {
