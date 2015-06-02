@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,9 @@ import java.util.*;
 public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label TankHealth;
     @FXML private Label Fuel;
+    @FXML private Label Angle;
+    @FXML private Label ShotIntensity;
+    @FXML private Slider ShotSlider;
 
     public Group TerrainGroup;
     private TerrainModel terrainModel;
@@ -40,8 +44,6 @@ public class Controller implements EventHandler<KeyEvent> {
     private ProjectileModel projectileModel;
     private Timer timer;
     private boolean projectileExploded;
-    private int Angle;
-
 
 
     public Controller() {
@@ -105,8 +107,9 @@ public class Controller implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
+
         KeyCode code = keyEvent.getCode();
-        // System.out.println("Got here");
+
         if ((code == KeyCode.LEFT || code == KeyCode.A) && this.activeTankModel.getFuel()>0) {
             //if (this.tankView.getTank().getX() + offset - 5) >= 0)
             this.activeTankModel.moveLeft();
@@ -171,7 +174,7 @@ public class Controller implements EventHandler<KeyEvent> {
                         .getLayoutY());
                 keyEvent.consume();
             }
-
+            updateAngleDisplay();
 
         } else if (code == KeyCode.DOWN || code == KeyCode.S){
             // Rotate nozzle left
@@ -191,7 +194,9 @@ public class Controller implements EventHandler<KeyEvent> {
                         .getLayoutY());
                 keyEvent.consume();
             }
+            updateAngleDisplay();
     }
+        updateIntensityDisplay();
 //        int testXCor = this.activeTankModel.getX();
 //        int testYCor = this.activeTankModel.getY();
 //        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
@@ -213,7 +218,20 @@ public class Controller implements EventHandler<KeyEvent> {
         swapTanks();
     }
 
-    public void updateHealthDisplay() {
+    private void updateIntensityDisplay() {
+        int shotIntensity = (int) ShotSlider.getValue();
+        String shotIntensityString = String.format("Shot Intensity: %s",
+                Integer.toString(shotIntensity));
+        ShotIntensity.setText(shotIntensityString);
+    }
+
+    private void updateAngleDisplay() {
+        int angle = this.activeTankModel.getNozzleAngle();
+        String angleString = String.format("Angle: %s", (Integer.toString(angle)));
+        Angle.setText(angleString);
+    }
+
+    private void updateHealthDisplay() {
         double health = this.activeTankModel.getHealth();
         String healthString = String.format("Health: %s", (Double.toString(health)));
         TankHealth.setText(healthString);
@@ -229,8 +247,15 @@ public class Controller implements EventHandler<KeyEvent> {
             this.activeTankView = this.tankViews.get(0);
             this.activeTankIndex = 0;
         }
+        isGameOver();
         updateFuelDisplay();
         updateHealthDisplay();
+    }
+
+    private void isGameOver() {
+        if (this.activeTankModel.getHealth()<=0) {
+            System.out.println("GAME OVER BLARGH");
+        }
     }
 
     public void shootProjectile() {
@@ -238,7 +263,7 @@ public class Controller implements EventHandler<KeyEvent> {
         this.projectileExploded= false;
         for (Node node : this.ProjectileGroup.getChildren()) {
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    80, 50);
+                    this.activeTankModel.getNozzleAngle(), this.ShotSlider.getValue());
             this.projectileView = (ProjectileView) node;
             this.projectileView.createNewProjectile(this.projectileModel);
             this.projectileView.update();
@@ -263,11 +288,13 @@ public class Controller implements EventHandler<KeyEvent> {
                         }
                         else {
                         updateAnimation();
-                        if(projectileView.outOfScreen()==false && projectileExploded == false
+                        if(!projectileView.outOfScreen() && !projectileExploded
                             && projectileModel.getPosY()>terrainModel.getYPos(projectileModel.getPosX())
                                 ) {
                             projectileExploded = true;
-                            System.out.println(projectileModel.getPosY() + "and " + terrainModel.getYPos(projectileModel.getPosX()));
+                            System.out.println(projectileModel.getPosY() + "and "
+                                    + terrainModel.getYPos(
+                                    projectileModel.getPosX()));
                             System.out.println("KABLAM");
                             resolveProjectile();
                             cancel();
@@ -288,15 +315,18 @@ public class Controller implements EventHandler<KeyEvent> {
     public void resolveProjectile() {
 
         for (TankModel tank : this.tankModels) {
-            if (Math.abs(tank.getX()-this.terrainModel.getYPos( this.projectileModel.getPosX() )) <
+            if (Math.abs(tank.getX()-this.terrainModel.getYPos(
+                    this.projectileModel.getPosX() )) <
                     this.projectileModel.getBlastRadius()) {
                 tank.takeDamage(this.projectileModel.getDamage(
-                        Math.abs(tank.getX()-this.terrainModel.getYPos( this.projectileModel.getPosX() ))));
+                        Math.abs(tank.getX()-this.terrainModel.getYPos(
+                                this.projectileModel.getPosX() ))));
             }
 
         }
         this.projectileView.destroyProjectile();
-        this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int) this.projectileModel.getBlastRadius());
+        this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int)
+                this.projectileModel.getBlastRadius());
         this.terrainView.update();
     }
 
