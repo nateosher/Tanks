@@ -226,6 +226,7 @@ public class Controller implements EventHandler<KeyEvent> {
         for (Node node : this.ProjectileGroup.getChildren()) {
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
                     this.activeTankModel.getNozzleAngle(), this.ShotSlider.getValue());
+            this.projectileModel.setTerrainModel(this.terrainModel);
             this.projectileView = (ProjectileView) node;
             this.projectileView.createNewProjectile(this.projectileModel);
             this.projectileView.update();
@@ -284,19 +285,30 @@ public class Controller implements EventHandler<KeyEvent> {
     * terrain and removes the projectile from the window.
     */
     public void resolveProjectile() {
-        for (TankModel tank : this.tankModels) {
-            if (Math.abs(tank.getX()-this.terrainModel.getYPos(
-                    this.projectileModel.getPosX() )) <
-                    this.projectileModel.getBlastRadius()) {
-                tank.takeDamage(this.projectileModel.getDamage(
-                        Math.abs(tank.getX()-this.terrainModel.getYPos(
-                                this.projectileModel.getPosX() ))));
-            }
 
-        }
-        this.projectileView.destroyProjectile();
+        int impactPointX = this.projectileModel.findImpactPointX();
+        this.projectileModel.setPosX(impactPointX);
+        this.projectileModel.setPosY(terrainModel.getYPos(impactPointX));
+
         this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int)
                 this.projectileModel.getBlastRadius());
+
+        for (TankModel tank : this.tankModels) {
+            double distFromProjectile = Math.sqrt(
+                    Math.pow(
+                            (tank.getY()+tank.getHeight()) -
+                                    this.projectileModel.getPosY(), 2) +
+                            Math.pow(tank.getX()+tank.getWidth()/2 - this.projectileModel.getPosX(), 2));
+            System.out.println("Tank is " + distFromProjectile + " away");
+            if (distFromProjectile < this.projectileModel.getBlastRadius()) {
+                tank.takeDamage(this.projectileModel.getDamage((int) distFromProjectile));
+            }
+            tank.setPositionByX(tank.getX());
+        }
+        this.projectileView.destroyProjectile();
+        for (TankView tankView : this.tankViews) {
+            tankView.update();
+        }
         this.terrainView.update();
     }
 
