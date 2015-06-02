@@ -24,8 +24,6 @@ public class TerrainView extends Group {
     final int DEFAULT_HEIGHT = 800;
 
     public TerrainView() {
-        // this.width = DEFAULT_WIDTH;
-        // this.height = DEFAULT_HEIGHT;
         update();
     }
 
@@ -47,13 +45,6 @@ public class TerrainView extends Group {
         this.height = height;
     }
 
-    //public int getXLeftShift() {
-    //    return this.x_left_shift;
-    //}
-
-    //public void setXLeftShift(int x_left_shift) {
-    //    this.x_left_shift = x_left_shift;
-    //}
 
     public Color getTerrainColor() {
         return this.terrainColor;
@@ -73,9 +64,6 @@ public class TerrainView extends Group {
         for (int i=0; i<this.width; i++) {
             Rectangle sliver = new Rectangle(i, this.terrainModel.getYPos(i),
                     1, this.height-this.terrainModel.getYPos(i));
-            // Rectangle sliver = new Rectangle(i, this.height-this.terrainModel.getYPos(i + this.x_left_shift),
-                    // 1, this.terrainModel.getYPos(i+this.x_left_shift));
-            //System.out.println(this.height - this.terrainModel.getYPos(i + this.x_left_shift) + ", " + this.terrainModel.getYPos(i + this.x_left_shift));
             sliver.setFill(this.getTerrainColor());
             this.getChildren().add(sliver);
         }

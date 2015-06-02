@@ -35,9 +35,6 @@ public class TerrainModel {
     private int terrainFunction(int x_pos) {
         double x = (double) x_pos;
         return (int) (((double)DEFAULT_HEIGHT)-((this.randomFactor*30+48)*(Math.cos(x/(randomFactor*100+50)+(randomFactor+.25)*70)+2))-150);
-        //if (x_pos < 500)
-        //    return 300;
-        //else return 350;
     }
 
     public void destroyChunk(int xCor, int radius) {
