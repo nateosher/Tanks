@@ -1,30 +1,28 @@
 package sample;
 
-import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 import javafx.scene.transform.Rotate;
 
 /**
  * Created by Nate on 5/28/15.
  */
 public class TankView extends Group{
-    private TerrainModel terrainModel;
     private TankModel tank;
     private Rectangle tankBody;
     private Rectangle tankNozzle;
     private Rotate rPos;
     private Rotate rNeg;
 
-    public int getTerrainHeight(int xPos){ return this.terrainModel.getYPos(xPos); }
 
     public TankView(){
 
     }
 
+    /* Assigns a tankModel to the tankView and sets the dimensions/locations
+    * of the various shapes that comprise the tank accordingly
+    */
     public void setTankModel(TankModel tankModel) {
         this.tank = tankModel;
         this.tankBody = new Rectangle(this.getTank().getX(),
@@ -59,6 +57,10 @@ public class TankView extends Group{
 
     public Rotate getrNeg(){ return this.rNeg; }
 
+    /*
+    * Updates the position of the tank based on new coordinates, which are
+    * changed when users press either right or left arrows.
+    */
     public void update(){
         this.getChildren().clear();
         this.tankBody.setLayoutX(this.tank.getX());

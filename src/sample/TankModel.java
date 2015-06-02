@@ -44,7 +44,6 @@ public class TankModel {
         this.height = DEFAULT_HEIGHT;
         this.tankCol = DEFAULT_TANKCOL[team];
         this.borderColor = DEFAULT_BORDER;
-        // this.startXCor = randomNumberGenerator.nextInt(1200);
         this.startXCor = DEFAULT_X;
         this.xCor = startXCor;
         this.yCor = DEFAULT_Y;
@@ -60,10 +59,6 @@ public class TankModel {
 
     public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
 
-    public void setPower(int power) {
-        this.power = power;
-    }
-
     public int getPower() {
         return this.power;
     }
@@ -77,10 +72,6 @@ public class TankModel {
     public Color getTankCol(){ return this.tankCol; }
 
     public Color getBorderColor(){ return this.borderColor; }
-
-    public void setX(int newX){ this.xCor = newX; }
-
-    public void setNozzleX(int newX){ this.nozzleXCor = newX; }
 
     public int getNozzleX() { return this.nozzleXCor; }
 
@@ -110,13 +101,15 @@ public class TankModel {
 
     public int getFuel() {return this.fuel;}
 
-    public void setFuel(int newFuel) { this.fuel = newFuel; }
-
     public void takeDamage(double damage) {
-        System.out.println("ow");
         this.health -= damage;
     }
 
+    /* Checks to see that the tank is within the bounds of the screen,
+    * and if it is, sets the tank's x coordinate to be itself minus five
+    * and the y coordinate to be the y coordinate of the terrain at that
+    * point (offset by fifteen to account for the width of the tank)
+    */
     public void moveLeft() {
         if (this.xCor > 5) {
             this.xCor -= 5;
@@ -124,16 +117,24 @@ public class TankModel {
             this.fuel--;
         }
     }
+
+    /* Checks to see that the tank is within the bounds of the screen,
+    * and if it is, sets the tank's x coordinate to be itself plus five
+    * and the y coordinate to be the y coordinate of the terrain at that
+    * point (offset by fifteen to account for the width of the tank)
+    */
     public void moveRight() {
         if (this.xCor < 1170) {
             this.xCor += 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
             this.fuel--;
-
         }
     }
 
-    // call on each tank every time a projectile is fired!
+    /*
+    * Updates the health of a tank if it is hit by a projectile. This is called
+    * whenever a tank is hit.
+    */
     public void takeHit(int projXCor, int radius, int damage) {
         if (Math.abs(this.getX()-projXCor) <= radius) {
             drop();
@@ -145,6 +146,9 @@ public class TankModel {
         this.health -= damage;
     }
 
+    /*
+    * Drops the tank when the terrain sinks.
+    */
     private void drop() {
         int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
         this.setY(droppedY);

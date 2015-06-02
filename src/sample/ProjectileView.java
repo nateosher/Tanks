@@ -4,7 +4,6 @@ package sample;
  * 5/28/15.
  */
 
-import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,15 +13,16 @@ public class ProjectileView extends Group {
     private Circle projectileBody;
     private Color projectileColor;
 
-    final Color DEFAULT_COLOR = Color.PINK;
+    final Color DEFAULT_COLOR = Color.BLACK;
     final Color BACKGROUND_COLOR = Color.WHITE;
-
-    @FXML private int projectileRadius;
 
     public ProjectileView () {
         this.projectileColor = DEFAULT_COLOR;
     }
 
+    /* Assigns the projectileView a projectileModel, and sets the initial
+    * position to (0,0).
+    */
     public void createNewProjectile(ProjectileModel projectileModel) {
         this.projectileColor = DEFAULT_COLOR;
         this.projectileModel = projectileModel;
@@ -33,19 +33,29 @@ public class ProjectileView extends Group {
         this.projectileBody.setFill(this.projectileColor);
     }
 
+    /*
+    * Updates the position of the projectileView, which is used during animation.
+    */
     public void update() {
         this.getChildren().clear();
-
         this.projectileBody.setCenterX(this.projectileModel.getPosX());
         this.projectileBody.setCenterY(this.projectileModel.getPosY());
         this.getChildren().add(projectileBody);
     }
 
+    /* Returns true if the projectile is out of the bounds of the screen,
+    * and false otherwise.
+    */
     public boolean outOfScreen() {
         return (this.projectileModel.getPosX()<0 ||
-                this.projectileModel.getPosX()>1199);
+                this.projectileModel.getPosX()>1199 ||
+                this.projectileModel.getPosY()>820);
     }
 
+    /*
+    * Called when a projectile intersects the terrain. This method clears the
+    * projectile from the screen.
+    */
     public void destroyProjectile() {
         this.projectileColor = BACKGROUND_COLOR;
         this.projectileBody.setCenterX(0);

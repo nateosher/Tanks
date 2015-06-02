@@ -31,6 +31,7 @@ public class Main extends Application {
         startGame();
     }
 
+    /* Creates a new window and sets up a game of tanks */
     public void startGame() throws Exception {
         this.stage = new Stage();
         this.stage.setTitle("Tanks?");

@@ -1,23 +1,14 @@
 package sample;
 
-import com.sun.javafx.binding.StringFormatter;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import java.util.*;
 
 
@@ -49,8 +40,11 @@ public class Controller implements EventHandler<KeyEvent> {
     public Controller() {
     }
 
+    /*
+    * Draws the actual terrain, sets the positions of the tanks,
+    * and draws them in those positions
+    */
     public void initialize() {
-
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
 
@@ -60,12 +54,6 @@ public class Controller implements EventHandler<KeyEvent> {
             this.terrainView.setTerrainModel(this.terrainModel);
             this.terrainView.update();
         }
-
-        //this.tankModel = new TankModel();
-        //this.tankView = new TankView();
-        //this.tankView.setTankModel(this.tankModel);
-        //this.tankView.getTank().setTerrainModel(this.terrainModel);
-        //this.tankModel = this.tankView.getTank();
 
         this.tankModels = new ArrayList<TankModel>();
         this.tankViews = new ArrayList<TankView>();
@@ -107,111 +95,77 @@ public class Controller implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-
         KeyCode code = keyEvent.getCode();
-
-        if ((code == KeyCode.LEFT || code == KeyCode.A) && this.activeTankModel.getFuel()>0) {
-            //if (this.tankView.getTank().getX() + offset - 5) >= 0)
+        if ((code == KeyCode.LEFT || code == KeyCode.A)
+                && this.activeTankModel.getFuel()>0) {
             this.activeTankModel.moveLeft();
             this.activeTankView.update();
             updateFuelDisplay();
             keyEvent.consume();
-
-        } else if ((code == KeyCode.RIGHT || code == KeyCode.D) && this.activeTankModel.getFuel()>0) {
-            // move tank right
-            // System.out.println("Right");
-
+        } else if ((code == KeyCode.RIGHT || code == KeyCode.D)
+                && this.activeTankModel.getFuel()>0) {
             this.activeTankModel.moveRight();
             this.activeTankView.update();
             updateFuelDisplay();
             keyEvent.consume();
-
-            // Just a test to demonstrate destructible terrain
-        } else if (code == KeyCode.T) {
-            this.terrainView.destroyChunk(500, 50);
-            this.terrainView.destroyChunk(750, 20);
-            int team = 0;
-            for (Node node : this.TankGroup.getChildren()) {
-                TankView tankView = (TankView) node;
-                tankView.getTank().takeHit(500, 50, 0);
-                tankView.getTank().takeHit(750, 20, 0);
-                tankView.getBody().setLayoutY(tankView.getTank().getY());
-                tankView.update();
-                team++;
-            }
-            keyEvent.consume();
-
         } else if (code == KeyCode.F) {
-            //this.activeTankModel.getX(),this.activeTankModel.getY(),angle,intensity);
             shootProjectile();
             swapTanks();
-        } else if (code == KeyCode.Q) {
-            System.out.println("my turn");
-            if (this.activeTankIndex == 0) {
-                this.activeTankModel = this.tankModels.get(1);
-                this.activeTankView = this.tankViews.get(1);
-                this.activeTankIndex = 1;
-            } else {
-                this.activeTankModel = this.tankModels.get(0);
-                this.activeTankView = this.tankViews.get(0);
-                this.activeTankIndex = 0;
-            }
+            keyEvent.consume();
         } else if (code == KeyCode.UP || code == KeyCode.W){
-            // Rotate nozzle left
-            if (this.activeTankModel.getNozzleAngle() < 180){
-                this.activeTankModel.setNozzleAngle(this.activeTankModel.getNozzleAngle() + 1);
-                this.activeTankView.getNozzle().getTransforms().add(this.activeTankView
-                        .getrPos());
-                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
-                        .getNozzleY());
-                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
-                        .getLayoutY());
-                keyEvent.consume();
-            } else{
-                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
-                        .getNozzleY());
-                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
-                        .getLayoutY());
-                keyEvent.consume();
-            }
+            increaseNozzleAngle();
             updateAngleDisplay();
-
+            keyEvent.consume();
         } else if (code == KeyCode.DOWN || code == KeyCode.S){
-            // Rotate nozzle left
-            if (this.activeTankModel.getNozzleAngle() > 0){
-                this.activeTankModel.setNozzleAngle(this.activeTankModel.getNozzleAngle() - 1);
-                this.activeTankView.getNozzle().getTransforms().add(this.activeTankView
-                        .getrNeg());
-                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
-                        .getNozzleY());
-                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
-                        .getLayoutY());
-                keyEvent.consume();
-            } else{
-                this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
-                        .getNozzleY());
-                this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
-                        .getLayoutY());
-                keyEvent.consume();
-            }
+            decreaseNozzleAngle();
             updateAngleDisplay();
-    }
-        updateIntensityDisplay();
-//        int testXCor = this.activeTankModel.getX();
-//        int testYCor = this.activeTankModel.getY();
-//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
-//        System.out.println(testString) ;
-
-//        int nzang = this.activeTankModel.getNozzleAngle();
-//        String testString = String.format("Nozzle angle: %s", (nzang));
-//        System.out.println(testString) ;
-//        keyEvent.consume();
-//        int testXCor = this.activeTankModel.getX();
-//        int testYCor = this.activeTankModel.getY();
-//        String testString = String.format("Tank x cor: %s, Tank y cor: %s", (testXCor), (testYCor));
-//        System.out.println(testString);
-
+            keyEvent.consume();
         }
+        updateIntensityDisplay();
+    }
+
+    /*
+    * Used in response to UP key press. This method increases the angle of the
+    * active tank's nozzle, rotating it to the left.
+     */
+    private void increaseNozzleAngle() {
+        if (this.activeTankModel.getNozzleAngle() < 180){
+            this.activeTankModel.setNozzleAngle(
+                    this.activeTankModel.getNozzleAngle() + 1);
+            this.activeTankView.getNozzle().getTransforms()
+                    .add(this.activeTankView.getrPos());
+            this.activeTankView.getTank().setNozzleY(
+                    this.activeTankView.getTank().getNozzleY());
+            this.activeTankView.getNozzle().setLayoutY(
+                    this.activeTankView.getNozzle().getLayoutY());
+        } else{
+            this.activeTankView.getTank().setNozzleY(
+                    this.activeTankView.getTank().getNozzleY());
+            this.activeTankView.getNozzle().setLayoutY(
+                    this.activeTankView.getNozzle().getLayoutY());
+        }
+    }
+
+    /*
+    * Used in response to DOWN key press. This method decreases the angle of the
+    * active tank's nozzle, rotating it to the right.
+     */
+    private void decreaseNozzleAngle() {
+        if (this.activeTankModel.getNozzleAngle() > 0){
+            this.activeTankModel.setNozzleAngle(this.activeTankModel.getNozzleAngle() - 1);
+            this.activeTankView.getNozzle().getTransforms().add(this.activeTankView
+                    .getrNeg());
+            this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                    .getNozzleY());
+            this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                    .getLayoutY());
+        } else{
+            this.activeTankView.getTank().setNozzleY(this.activeTankView.getTank()
+                    .getNozzleY());
+            this.activeTankView.getNozzle().setLayoutY(this.activeTankView.getNozzle()
+                    .getLayoutY());
+        }
+    }
 
     public void onFireButton() {
         shootProjectile();
@@ -237,6 +191,10 @@ public class Controller implements EventHandler<KeyEvent> {
         TankHealth.setText(healthString);
     }
 
+    /*
+    * When a turn is over (after a projectile is fired), the turns are swapped
+    * using this method.
+    */
     public void swapTanks() {
         if (this.activeTankIndex == 0) {
             this.activeTankModel = this.tankModels.get(1);
@@ -258,6 +216,10 @@ public class Controller implements EventHandler<KeyEvent> {
         }
     }
 
+    /* Creates and draws a new projectile in the location of the tank that
+    * fired and animates it based on the angle and initial power of the
+    * shot
+    */
     public void shootProjectile() {
         System.out.println("pew!");
         this.projectileExploded= false;
@@ -271,11 +233,17 @@ public class Controller implements EventHandler<KeyEvent> {
         animateProjectile();
     }
 
+    /* Updates the coordinates of the projectile based on the given path
+    * and re-draws it based on this
+    */
     public void updateAnimation() {
         this.projectileModel.updateCoordinates();
         this.projectileView.update();
     }
 
+    /* Animates a given projectile. A projectile "explodes" if it has left
+    * the screen or if it has collided with the ground
+    */
     public void animateProjectile() {
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -312,8 +280,14 @@ public class Controller implements EventHandler<KeyEvent> {
 
     }
 
+    /* When a projectile explodes, determines whether or not either tank
+    * was in the blast radius. If so, it deals damage to the tank
+    * based on its distance from the explosion
+    *
+    * Regardless of whether or not a tank is hit, destroys a chunk of the
+    * terrain and removes the projectile from the window.
+    */
     public void resolveProjectile() {
-
         for (TankModel tank : this.tankModels) {
             if (Math.abs(tank.getX()-this.terrainModel.getYPos(
                     this.projectileModel.getPosX() )) <

@@ -37,29 +37,12 @@ public class TerrainView extends Group {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return this.height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public Color getTerrainColor() {
         return this.terrainColor;
-    }
-
-    public void setTerrainColor(Color terrainColor) {
-        this.terrainColor = terrainColor;
-    }
-
-    public void destroyChunk(int xCor, int radius) {
-        this.terrainModel.destroyChunk(xCor, radius);
-        update();
     }
 
     public void update() {

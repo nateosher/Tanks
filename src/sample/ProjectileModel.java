@@ -13,11 +13,9 @@ public class ProjectileModel {
     private double blast_radius;
     private double damage;
 
-    final int DEFAULT_X = 100;
-    final int DEFAULT_Y = 100;
-    final int DEFAULT_VEL_X = 0;
-    final int DEFAULT_VEL_Y = 0;
-
+    /* Model of a projectile, including its initial x and y velocities,
+    * x and y positions, damage, and blast radius.
+    */
     public ProjectileModel(int pos_x, int pos_y, double angle, double intensity) {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
@@ -36,28 +34,12 @@ public class ProjectileModel {
         return this.pos_y;
     }
 
-    public void setPosX(int newPosX) {
-        this.pos_x = newPosX;
-    }
-
-    public void setPosY(int newPosY) {
-        this.pos_y = newPosY;
-    }
-
     public double getVelX() {
         return this.vel_x;
     }
 
     public double getVelY() {
         return this.vel_y;
-    }
-
-    public void setVelX(int newVelX) {
-        this.vel_x = newVelX;
-    }
-
-    public void setVelY(int newVelY) {
-        this.vel_y = newVelY;
     }
 
     public void updateCoordinates() {
@@ -75,10 +57,17 @@ public class ProjectileModel {
         this.vel_y += 9.8;
         }
 
+    /*
+    * Calculates the damage a tank takes based on it's distance from a hit.
+    * This method is called whenever a tank is within the blast radius.
+     */
     public double getDamage(int distance) {
-        return this.damage*((this.blast_radius-distance)/this.blast_radius)+this.damage/2;
+        return this.damage*((this.blast_radius-distance)/this.blast_radius)
+                + this.damage/2;
     }
 
-    public double getBlastRadius() { return this.blast_radius;}
+    public double getBlastRadius() {
+        return this.blast_radius;
+    }
 
 }
