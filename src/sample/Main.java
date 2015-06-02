@@ -32,6 +32,7 @@ public class Main extends Application {
     }
 
     public void startGame() throws Exception {
+        /* Creates a new window and sets up a game of tanks */
         this.stage = new Stage();
         this.stage.setTitle("Tanks?");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));

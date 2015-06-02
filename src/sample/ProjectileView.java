@@ -14,7 +14,7 @@ public class ProjectileView extends Group {
     private Circle projectileBody;
     private Color projectileColor;
 
-    final Color DEFAULT_COLOR = Color.PINK;
+    final Color DEFAULT_COLOR = Color.BLACK;
     final Color BACKGROUND_COLOR = Color.WHITE;
 
     @FXML private int projectileRadius;
@@ -24,6 +24,9 @@ public class ProjectileView extends Group {
     }
 
     public void createNewProjectile(ProjectileModel projectileModel) {
+        /* Assigns the projectileView a projectileModel, and sets the initial
+         * position to (0,0).
+         */
         this.projectileColor = DEFAULT_COLOR;
         this.projectileModel = projectileModel;
         this.projectileBody = new Circle(this.projectileModel.getPosX(),
@@ -42,8 +45,12 @@ public class ProjectileView extends Group {
     }
 
     public boolean outOfScreen() {
+        /* Returns true if the projectile is out of the bounds of the screen,
+         * and false otherwise.
+         */
         return (this.projectileModel.getPosX()<0 ||
-                this.projectileModel.getPosX()>1199);
+                this.projectileModel.getPosX()>1199 ||
+                this.projectileModel.getPosY()>820);
     }
 
     public void destroyProjectile() {

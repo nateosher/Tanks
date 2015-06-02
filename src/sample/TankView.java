@@ -22,12 +22,12 @@ public class TankView extends Group{
     public int getTerrainHeight(int xPos){ return this.terrainModel.getYPos(xPos); }
 
     public TankView(){
-
-        // this.terrainModel = terrainModel;
-
     }
 
     public void setTankModel(TankModel tankModel) {
+        /* Assigns a tankModel to the tankView and sets the dimensions/locations
+         * of the various shapes that comprise the tank accordingly
+         */
         this.tank = tankModel;
         this.tankBody = new Rectangle(this.getTank().getX(),
                 this.getTank().getY(),

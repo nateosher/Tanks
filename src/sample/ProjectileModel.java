@@ -19,6 +19,9 @@ public class ProjectileModel {
     final int DEFAULT_VEL_Y = 0;
 
     public ProjectileModel(int pos_x, int pos_y, double angle, double intensity) {
+        /* Model of a projectile, including its initial x and y velocities,
+         * x and y positions, damage, and blast radius.
+         */
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.vel_x = intensity*Math.cos((angle*Math.PI)/180);

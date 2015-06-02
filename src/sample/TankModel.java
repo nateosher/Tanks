@@ -118,6 +118,11 @@ public class TankModel {
     }
 
     public void moveLeft() {
+        /* Checks to see that the tank is within the bounds of the screen,
+         * and if it is, sets the tank's x coordinate to be itself minus five
+         * and the y coordinate to be the y coordinate of the terrain at that
+         * point (offset by fifteen to account for the width of the tank)
+         */
         if (this.xCor > 5) {
             this.xCor -= 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
@@ -125,11 +130,15 @@ public class TankModel {
         }
     }
     public void moveRight() {
+        /* Checks to see that the tank is within the bounds of the screen,
+         * and if it is, sets the tank's x coordinate to be itself plus five
+         * and the y coordinate to be the y coordinate of the terrain at that
+         * point (offset by fifteen to account for the width of the tank)
+         */
         if (this.xCor < 1170) {
             this.xCor += 5;
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
             this.fuel--;
-
         }
     }
 
