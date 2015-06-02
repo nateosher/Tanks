@@ -18,7 +18,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
         Parent root = (Parent)loader.load();
         root.setFocusTraversable(true);
-        this.menu = new Scene(root, 1200, 800);
+        this.menu = new Scene(root, 500, 500);
 
         this.stage.setTitle("Tanks?");
         this.stage.setScene(this.menu);
@@ -27,7 +27,11 @@ public class Main extends Application {
         root.requestFocus();
     }
 
-    public void onStartButton() throws Exception {
+    public void onStartButton() throws Exception{
+        startGame();
+    }
+
+    public void startGame() throws Exception {
         this.stage = new Stage();
         this.stage.setTitle("Tanks?");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
@@ -38,9 +42,9 @@ public class Main extends Application {
 
         root.setOnKeyPressed(controller);
 
-        this.stage.setScene(this.map);
-        this.stage.setResizable(false);
-        this.stage.show();
+        stage.setScene(this.map);
+        stage.setResizable(false);
+        stage.show();
         root.requestFocus();
     }
 
