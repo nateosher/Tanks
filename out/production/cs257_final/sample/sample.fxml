@@ -21,6 +21,8 @@
 
     <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: 0"/>
 
+    <Slider fx:id="AngleSlider" LayoutX = "400" AnchorPane.topAnchor="50" min="0" max="180" value="0"/>
+
     <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: 50"/>
 
     <Slider fx:id="ShotSlider" LayoutX = "600" AnchorPane.topAnchor="50" min="0" max="100" value="50"/>

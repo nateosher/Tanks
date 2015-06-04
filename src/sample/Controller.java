@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label ShotIntensity;
     @FXML private Slider ShotSlider;
     @FXML private Label GameOver;
+    @FXML private Slider AngleSlider;
 
     public Group TerrainGroup;
     private TerrainModel terrainModel;
@@ -85,6 +88,21 @@ public class Controller implements EventHandler<KeyEvent> {
             team++;
         }
         this.activeTankIndex = 1;
+
+        ShotSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                updateIntensityDisplay();
+            }
+        });
+
+        AngleSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                setNozzleAngle();
+                updateAngleDisplay();
+            }
+        });
     }
 
     public void updateFuelDisplay() {
@@ -148,6 +166,17 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     /*
+    * Allows the angle slider to change the angle of a nozzle
+     */
+    private void setNozzleAngle() {
+        this.activeTankModel.setNozzleAngle((int) AngleSlider.getValue());
+        this.activeTankView.getTank().setNozzleY(
+                this.activeTankView.getTank().getNozzleY());
+        this.activeTankView.getTank().setNozzleX(
+                this.activeTankView.getTank().getNozzleX());
+    }
+
+    /*
     * Used in response to DOWN key press. This method decreases the angle of the
     * active tank's nozzle, rotating it to the right.
      */
@@ -182,6 +211,7 @@ public class Controller implements EventHandler<KeyEvent> {
 
     private void updateAngleDisplay() {
         int angle = this.activeTankModel.getNozzleAngle();
+        AngleSlider.setValue((double) angle);
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
         Angle.setText(angleString);
     }
@@ -298,9 +328,9 @@ public class Controller implements EventHandler<KeyEvent> {
         for (TankModel tank : this.tankModels) {
             double distFromProjectile = Math.sqrt(
                     Math.pow(
-                            (tank.getY()+tank.getHeight()) -
+                            (tank.getY() + tank.getHeight()) -
                                     this.projectileModel.getPosY(), 2) +
-                            Math.pow(tank.getX()+tank.getWidth()/2 - this.projectileModel.getPosX(), 2));
+                            Math.pow(tank.getX() + tank.getWidth() / 2 - this.projectileModel.getPosX(), 2));
             System.out.println("Tank is " + distFromProjectile + " away");
             if (distFromProjectile < this.projectileModel.getBlastRadius()) {
                 tank.takeDamage(this.projectileModel.getDamage((int) distFromProjectile));

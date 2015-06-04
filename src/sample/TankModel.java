@@ -77,6 +77,8 @@ public class TankModel {
 
     public void setNozzleY(int newY) {this.nozzleYCor = newY;}
 
+    public void setNozzleX(int newX) {this.nozzleXCor=newX;}
+
     public int getNozzleY() { return this.nozzleYCor; }
 
     public int getNozzleLength() { return this.nozzleLength; }
