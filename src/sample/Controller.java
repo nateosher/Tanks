@@ -304,6 +304,7 @@ public class Controller implements EventHandler<KeyEvent> {
             System.out.println("Tank is " + distFromProjectile + " away");
             if (distFromProjectile < this.projectileModel.getBlastRadius()) {
                 tank.takeDamage(this.projectileModel.getDamage((int) distFromProjectile));
+                updateHealthDisplay();
             }
             tank.setPositionByX(tank.getX());
         }

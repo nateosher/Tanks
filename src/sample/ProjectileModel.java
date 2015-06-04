@@ -68,7 +68,8 @@ public class ProjectileModel {
         while (projectileIsUnderground) {
             undergroundX = (int) (this.pos_x+i*xToYRatio);
             i++;
-            if((this.pos_y+i*yToXRatio) < this.terrainModel.getYPos((int)(this.pos_x+i*xToYRatio))){
+            if((this.pos_y+i*yToXRatio) < this.terrainModel.getYPos(
+                    (int)(this.pos_x+i*xToYRatio))){
                 projectileIsUnderground=false;
             }
         }
