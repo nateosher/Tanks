@@ -26,6 +26,7 @@ public class TankModel {
     private int nozzleLength;
     private int nozzleHeight;
     private int nozzleAngle;
+    private int shotIntensity;
 
     final int DEFAULT_WIDTH = 30;
     final int DEFAULT_HEIGHT = 20;
@@ -102,6 +103,10 @@ public class TankModel {
     public double getHealth() {return this.health;}
 
     public int getFuel() {return this.fuel;}
+
+    public void setShotIntensity(int shotIntensity) { this.shotIntensity = shotIntensity;}
+
+    public int getShotIntensity() { return this.shotIntensity;}
 
     public void takeDamage(double damage) {
         this.health -= damage;

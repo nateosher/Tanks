@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.util.*;
@@ -22,6 +23,7 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Slider ShotSlider;
     @FXML private Label GameOver;
     @FXML private Slider AngleSlider;
+    @FXML private AnchorPane AnchorController;
 
     public Group TerrainGroup;
     private TerrainModel terrainModel;
@@ -92,6 +94,7 @@ public class Controller implements EventHandler<KeyEvent> {
         ShotSlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
+                setTankIntensity();
                 updateIntensityDisplay();
             }
         });
@@ -169,11 +172,14 @@ public class Controller implements EventHandler<KeyEvent> {
     * Allows the angle slider to change the angle of a nozzle
      */
     private void setNozzleAngle() {
+
         this.activeTankModel.setNozzleAngle((int) AngleSlider.getValue());
-        this.activeTankView.getTank().setNozzleY(
-                this.activeTankView.getTank().getNozzleY());
-        this.activeTankView.getTank().setNozzleX(
-                this.activeTankView.getTank().getNozzleX());
+        this.activeTankView.updateNozzle();
+        this.activeTankView.update();
+    }
+
+    private void setTankIntensity() {
+        this.activeTankModel.setShotIntensity((int) ShotSlider.getValue());
     }
 
     /*
@@ -202,8 +208,13 @@ public class Controller implements EventHandler<KeyEvent> {
         swapTanks();
     }
 
+    public void onMouseReleased() {
+        AnchorController.requestFocus();
+    }
+
     private void updateIntensityDisplay() {
-        int shotIntensity = (int) ShotSlider.getValue();
+        int shotIntensity = activeTankModel.getShotIntensity();
+        ShotSlider.setValue((double) shotIntensity);
         String shotIntensityString = String.format("Shot Intensity: %s",
                 Integer.toString(shotIntensity));
         ShotIntensity.setText(shotIntensityString);
@@ -240,6 +251,7 @@ public class Controller implements EventHandler<KeyEvent> {
         updateAngleDisplay();
         updateHealthDisplay();
         updateFuelDisplay();
+        updateIntensityDisplay();
     }
 
     private void isGameOver() {
@@ -258,7 +270,7 @@ public class Controller implements EventHandler<KeyEvent> {
         this.projectileExploded= false;
         for (Node node : this.ProjectileGroup.getChildren()) {
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    this.activeTankModel.getNozzleAngle(), this.ShotSlider.getValue());
+                    this.activeTankModel.getNozzleAngle(), this.activeTankModel.getShotIntensity());
             this.projectileModel.setTerrainModel(this.terrainModel);
             this.projectileView = (ProjectileView) node;
             this.projectileView.createNewProjectile(this.projectileModel);
