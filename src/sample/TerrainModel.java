@@ -62,6 +62,7 @@ public class TerrainModel {
     }
 
     public int getYPos(int x_pos) {
+        System.out.println(x_pos);
         return this.terrainHeights[x_pos];
     }
 }

@@ -44,7 +44,7 @@
 
     </Group>
 
-    <Label fx:id="Instructions" LayoutX = "150" AnchorPane.bottomAnchor="30"
+    <Label fx:id="Instructions" LayoutX = "150" AnchorPane.topAnchor="70"
            text = "Left/Right arrows move your tank, Up/Down changes the angle. Press Fire! or F to fire a projectile, and move the slider to change shot intensity!"/>
 
 </AnchorPane>

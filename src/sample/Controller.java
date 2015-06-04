@@ -207,6 +207,7 @@ public class Controller implements EventHandler<KeyEvent> {
             this.activeTankIndex = 0;
         }
         isGameOver();
+        updateAngleDisplay();
         updateHealthDisplay();
         updateFuelDisplay();
     }
@@ -258,14 +259,15 @@ public class Controller implements EventHandler<KeyEvent> {
                             cancel();
                         }
                         else {
-                        updateAnimation();
-                        if(!projectileView.getProjectileModel().outOfScreen() && !projectileExploded
-                            && projectileModel.getPosY()>terrainModel
-                                .getYPos(projectileModel.getPosX())) {
-                            projectileExploded = true;
-                            resolveProjectile();
-                            cancel();
-                        }
+                            updateAnimation();
+                            if(!projectileView.getProjectileModel().outOfScreen()
+                                    && !projectileExploded
+                                    && projectileModel.getPosY()>terrainModel
+                                    .getYPos(projectileModel.getPosX())) {
+                                projectileExploded = true;
+                                resolveProjectile();
+                                cancel();
+                            }
                         }
                     }
                 });
@@ -291,10 +293,8 @@ public class Controller implements EventHandler<KeyEvent> {
         int impactPointX = this.projectileModel.findImpactPointX();
         this.projectileModel.setPosX(impactPointX);
         this.projectileModel.setPosY(terrainModel.getYPos(impactPointX));
-
         this.terrainModel.destroyChunk(this.projectileModel.getPosX(), (int)
                 this.projectileModel.getBlastRadius());
-
         for (TankModel tank : this.tankModels) {
             double distFromProjectile = Math.sqrt(
                     Math.pow(

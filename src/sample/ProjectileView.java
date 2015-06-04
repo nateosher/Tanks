@@ -47,15 +47,6 @@ public class ProjectileView extends Group {
         this.getChildren().add(projectileBody);
     }
 
-    /* Returns true if the projectile is out of the bounds of the screen,
-    * and false otherwise.
-    */
-    public boolean outOfScreen() {
-        return (this.projectileModel.getPosX()<0 ||
-                this.projectileModel.getPosX()>1199 ||
-                this.projectileModel.getPosY()>820);
-    }
-
     /*
     * Called when a projectile intersects the terrain. This method clears the
     * projectile from the screen.
