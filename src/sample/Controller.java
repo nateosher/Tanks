@@ -21,7 +21,6 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label Angle;
     @FXML private Label ShotIntensity;
     @FXML private Slider ShotSlider;
-    @FXML private Label GameOver;
     @FXML private Slider AngleSlider;
     @FXML private AnchorPane AnchorController;
 
@@ -44,7 +43,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 this.TankHealth, this.Fuel, this.Angle, this.ShotIntensity,
                 this.ShotSlider, this.AngleSlider, this.AnchorController);
         this.environment.updateAngleDisplay();
-        this.environment.updateHealthDisplay(this.TankHealth);
+        this.environment.updateHealthDisplay();
         this.environment.updateFuelDisplay();
         this.environment.updateIntensityDisplay();
     }
@@ -68,7 +67,7 @@ public class Controller implements EventHandler<KeyEvent> {
             this.environment.shootProjectile(this.ProjectileGroup);
             this.environment.swapTanks();
             this.environment.updateAngleDisplay();
-            this.environment.updateHealthDisplay(this.TankHealth);
+            this.environment.updateHealthDisplay();
             this.environment.updateFuelDisplay();
             keyEvent.consume();
         } else if (code == KeyCode.UP || code == KeyCode.W){
@@ -86,14 +85,13 @@ public class Controller implements EventHandler<KeyEvent> {
 
     public void onFireButton() {
         this.environment.shootProjectile(this.ProjectileGroup);
-        this.environment.updateHealthDisplay(this.TankHealth);
+        this.environment.updateHealthDisplay();
         this.environment.swapTanks();
     }
 
     public void onMouseReleased() {
         this.environment.getAnchorController().requestFocus();
     }
-
 
 
 }

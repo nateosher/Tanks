@@ -27,7 +27,7 @@ public class Main extends Application {
         root.requestFocus();
     }
 
-    public void onStartButton() throws Exception{
+    public void onStartButton() throws Exception {
         startGame();
     }
 
@@ -48,7 +48,6 @@ public class Main extends Application {
         stage.show();
         root.requestFocus();
     }
-
 
     public static void main(String[] args) {
         launch(args);

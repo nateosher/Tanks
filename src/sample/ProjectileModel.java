@@ -55,7 +55,7 @@ public class ProjectileModel {
 
     public void updateY() {
         this.pos_y += this.vel_y;
-        this.vel_y += 9.8;
+        this.vel_y += 5;
     }
 
     public int findImpactPointX() {

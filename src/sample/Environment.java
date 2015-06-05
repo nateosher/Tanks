@@ -7,8 +7,12 @@ package sample;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +21,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import sun.plugin.javascript.navig.Anchor;
 
 import java.util.*;
@@ -41,6 +46,7 @@ public class Environment {
     private Label Angle;
     private Label ShotIntensity;
     private Slider ShotSlider;
+
     private Label GameOver;
     private Slider AngleSlider;
     private AnchorPane AnchorController;
@@ -210,10 +216,10 @@ public class Environment {
         this.Angle.setText(angleString);
     }
 
-    public void updateHealthDisplay(Label label) {
+    public void updateHealthDisplay() {
         double health = this.activeTankModel.getHealth();
         String healthString = String.format("Health: %s", (Double.toString(health)));
-        label.setText(healthString);
+        this.TankHealth.setText(healthString);
     }
 
     public void updateFuelDisplay() {
@@ -223,11 +229,19 @@ public class Environment {
         this.Fuel.setText(fuelString);
     }
 
+    private void updateDisplays() {
+        updateIntensityDisplay();
+        updateAngleDisplay();
+        updateHealthDisplay();
+        updateFuelDisplay();
+    }
+
     /*
     * When a turn is over (after a projectile is fired), the turns are swapped
     * using this method.
     */
     public void swapTanks() {
+        isGameOver();
         if (this.activeTankIndex == 0) {
             this.activeTankModel = this.tankModels.get(1);
             this.activeTankView = this.tankViews.get(1);
@@ -237,14 +251,35 @@ public class Environment {
             this.activeTankView = this.tankViews.get(0);
             this.activeTankIndex = 0;
         }
-        isGameOver();
+        updateDisplays();
     }
 
     private void isGameOver() {
         if (this.activeTankModel.getHealth()<=0) {
-            System.out.println("Game Over");
-            //this.GameOver.setText(String.format("GAME OVER!!!"));
+            try {
+                endGame();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    /*
+    * Ends the current game by displaying a game over menu. Called when isGameOver
+    * is true.
+    *
+    * Code based on answer here: http://stackoverflow.com/questions/17252401/call-other-class-method-from-controller-in-javafx
+    */
+    public void endGame() throws Exception {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameover.fxml"));
+        root = (Parent)loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Tanks?");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, 500, 500));
+        stage.show();
+        root.requestFocus();
     }
 
     /* Creates and draws a new projectile in the location of the tank that
@@ -252,7 +287,6 @@ public class Environment {
     * shot
     */
     public void shootProjectile(Group projectileGroup) {
-        System.out.println("pew!");
         this.projectileExploded= false;
         for (Node node : projectileGroup.getChildren()) {
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
