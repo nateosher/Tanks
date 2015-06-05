@@ -79,7 +79,7 @@ public class Environment {
         for (Node node : tankGroup.getChildren()) {
             TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
-            tankModel.setNozzleAngle(team*180);
+            tankModel.setNozzleAngle(team * 180);
 
             TankView tankView = (TankView) node;
             tankView.setTankModel(tankModel);
@@ -206,17 +206,20 @@ public class Environment {
         }
     }
 
+
     public void updateIntensityDisplay() {
-        int shotIntensity = (int) this.ShotSlider.getValue();
+        int shotIntensity = (int) this.activeTankModel.getShotIntensity();
         String shotIntensityString = String.format("Shot Intensity: %s",
                 Integer.toString(shotIntensity));
         this.ShotIntensity.setText(shotIntensityString);
+        this.ShotSlider.setValue(shotIntensity);
     }
 
     public void updateAngleDisplay() {
         int angle = this.activeTankModel.getNozzleAngle();
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
         this.Angle.setText(angleString);
+        this.AngleSlider.setValue(angle);
     }
 
     public void updateHealthDisplay() {

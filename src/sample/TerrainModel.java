@@ -46,7 +46,9 @@ public class TerrainModel {
     /* Generates heights for the terrain based on the Cos() function */
     private int terrainFunction(int x_pos) {
         double x = (double) x_pos;
-        return (int) (((double)DEFAULT_HEIGHT)-((this.randomFactor*30+48)*(Math.cos(x/(randomFactor*100+50)+(randomFactor+.25)*70)+2))-150);
+        return (int) (((double)DEFAULT_HEIGHT)-
+                ((this.randomFactor*30+48)*(Math.cos(x/(randomFactor*100+50) +
+                        (randomFactor+.25)*70)+2))-150);
     }
 
     /* Destroys a chunk of terrain by decreasing the heights of the terrain
@@ -55,12 +57,18 @@ public class TerrainModel {
     public void destroyChunk(int xCor, int radius) {
         for (int i = (xCor - radius); i <= (xCor + radius); i++) {
             if ((i >= 0) && (i < 1200)) {
-                int explosionDepth = (int) (Math.sqrt((double) ((radius*radius)-(Math.abs(xCor-i)*Math.abs(xCor-i)))));
+                int explosionDepth = (int) (Math.sqrt(
+                        (double) ((radius*radius)-
+                                (Math.abs(xCor-i)*Math.abs(xCor-i)))));
+
                 terrainHeights[i] += explosionDepth;
             }
         }
     }
 
+    /* Gets the height of an individual slice of the terrain given
+     * an x position.
+     */
     public int getYPos(int x_pos) {
         System.out.println(x_pos);
         return this.terrainHeights[x_pos];

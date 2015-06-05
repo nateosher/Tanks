@@ -17,7 +17,9 @@ public class ProjectileModel {
     /* Model of a projectile, including its initial x and y velocities,
     * x and y positions, damage, and blast radius.
     */
-    public ProjectileModel(int pos_x, int pos_y, double angle, double intensity) {
+    public ProjectileModel
+        (int pos_x, int pos_y, double angle, double intensity) {
+
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.vel_x = intensity*Math.cos((angle*Math.PI)/180);
@@ -26,7 +28,8 @@ public class ProjectileModel {
         this.damage = 30;
     }
 
-    public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
+    public void setTerrainModel(TerrainModel newTerrainModel)
+        { this.terrainModel = newTerrainModel; }
 
     public int getPosX() { return this.pos_x; }
 
@@ -58,6 +61,11 @@ public class ProjectileModel {
         this.vel_y += 5;
     }
 
+    /* Called by resolveProjectile in Environment. Estimates where the
+     * projectile collided with the ground by drawing a path backwards
+     * from its current velocity vector. If unable to guess accurately,
+     * it will return the first y position that was recognized as below ground.
+     */
     public int findImpactPointX() {
         double xToYRatio = -(this.vel_x/this.vel_y);
         double yToXRatio = -(this.vel_y/Math.abs(this.vel_x));
