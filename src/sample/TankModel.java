@@ -93,7 +93,7 @@ public class TankModel {
     /* Places the tank on top of the terrain given an x coordinate */
     public void setPositionByX (int newX) {
         this.xCor = newX;
-        this.yCor = this.terrainModel.getYPos(this.xCor + 15) - 15; }
+        this.yCor = this.terrainModel.getYPos(this.xCor) - 15; }
 
     public int getX() { return this.xCor; }
 
@@ -110,6 +110,10 @@ public class TankModel {
 
     public int getShotIntensity() { return this.shotIntensity;}
 
+    /*
+    * Updates the health of a tank if it is hit by a projectile. This is called
+    * whenever a tank is hit.
+    */
     public void takeDamage(double damage) {
         this.health -= damage;
     }
@@ -138,21 +142,6 @@ public class TankModel {
             this.yCor = this.terrainModel.getYPos(this.xCor) - 15;
             this.fuel--;
         }
-    }
-
-    /*
-    * Updates the health of a tank if it is hit by a projectile. This is called
-    * whenever a tank is hit.
-    */
-    public void takeHit(int projXCor, int radius, int damage) {
-        if (Math.abs(this.getX()-projXCor) <= radius) {
-            drop();
-            loseHealth(damage);
-        }
-    }
-
-    private void loseHealth(int damage) {
-        this.health -= damage;
     }
 
     /*

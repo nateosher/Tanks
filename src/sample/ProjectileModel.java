@@ -31,6 +31,8 @@ public class ProjectileModel {
     public void setTerrainModel(TerrainModel newTerrainModel)
         { this.terrainModel = newTerrainModel; }
 
+    public TerrainModel getTerrainModel() { return this.terrainModel; }
+
     public int getPosX() { return this.pos_x; }
 
     public int getPosY() { return this.pos_y; }

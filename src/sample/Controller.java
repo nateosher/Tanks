@@ -29,6 +29,7 @@ public class Controller implements EventHandler<KeyEvent> {
     public Group TerrainGroup;
     public Group TankGroup;
     public Group ProjectileGroup;
+    public Group HealthGroup;
 
 
 
@@ -40,53 +41,50 @@ public class Controller implements EventHandler<KeyEvent> {
     */
     public void initialize() {
         this.environment = new Environment(this.TerrainGroup, this.TankGroup,
-                this.TankHealth, this.Fuel, this.Angle, this.ShotIntensity,
+                this.HealthGroup, this.TankHealth,
+                this.Fuel, this.Angle, this.ShotIntensity,
                 this.ShotSlider, this.AngleSlider, this.AnchorController);
-        this.environment.updateAngleDisplay();
-        this.environment.updateHealthDisplay();
-        this.environment.updateFuelDisplay();
-        this.environment.updateIntensityDisplay();
+        this.environment.updateDisplays();
     }
 
     @Override
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
-        if ((code == KeyCode.LEFT || code == KeyCode.A)
-                && this.environment.getActiveTankModel().getFuel()>0) {
-            this.environment.getActiveTankModel().moveLeft();
-            this.environment.getActiveTankView().update();
-            this.environment.updateFuelDisplay();
-            keyEvent.consume();
-        } else if ((code == KeyCode.RIGHT || code == KeyCode.D)
-                && this.environment.getActiveTankModel().getFuel()>0) {
-            this.environment.getActiveTankModel().moveRight();
-            this.environment.getActiveTankView().update();
-            this.environment.updateFuelDisplay();
-            keyEvent.consume();
-        } else if (code == KeyCode.F) {
-            this.environment.shootProjectile(this.ProjectileGroup);
-            this.environment.swapTanks();
-            this.environment.updateAngleDisplay();
-            this.environment.updateHealthDisplay();
-            this.environment.updateFuelDisplay();
-            keyEvent.consume();
-        } else if (code == KeyCode.UP || code == KeyCode.W){
-            this.environment.increaseNozzleAngle();
-            this.environment.updateAngleDisplay();
-            keyEvent.consume();
-        } else if (code == KeyCode.DOWN || code == KeyCode.S){
-            this.environment.decreaseNozzleAngle();
-            this.environment.updateAngleDisplay();
+        if(this.environment.isProjectileExploded()) {
+            if ((code == KeyCode.LEFT || code == KeyCode.A)
+                    && this.environment.getActiveTankModel().getFuel() > 0) {
+                this.environment.getActiveTankModel().moveLeft();
+                this.environment.getActiveTankView().update();
+                this.environment.updateFuelDisplay();
+                keyEvent.consume();
+            } else if ((code == KeyCode.RIGHT || code == KeyCode.D)
+                    && this.environment.getActiveTankModel().getFuel() > 0) {
+                this.environment.getActiveTankModel().moveRight();
+                this.environment.getActiveTankView().update();
+                this.environment.updateFuelDisplay();
+                keyEvent.consume();
+            } else if (code == KeyCode.F) {
+                this.environment.shootProjectile(this.ProjectileGroup);
+                keyEvent.consume();
+            } else if (code == KeyCode.UP || code == KeyCode.W) {
+                this.environment.increaseNozzleAngle();
+                this.environment.updateAngleDisplay();
+                keyEvent.consume();
+            } else if (code == KeyCode.DOWN || code == KeyCode.S) {
+                this.environment.decreaseNozzleAngle();
+                this.environment.updateAngleDisplay();
+                keyEvent.consume();
+            }
+        } else{
             keyEvent.consume();
         }
-        this.environment.updateIntensityDisplay();
     }
 
 
     public void onFireButton() {
-        this.environment.shootProjectile(this.ProjectileGroup);
-        this.environment.updateHealthDisplay();
-        this.environment.swapTanks();
+        if(this.environment.isProjectileExploded()) {
+            this.environment.shootProjectile(this.ProjectileGroup);
+        }
     }
 
     public void onMouseReleased() {

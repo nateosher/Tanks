@@ -30,6 +30,7 @@ public class Environment {
 
     private TerrainModel terrainModel;
     private TerrainView terrainView;
+    private HealthView healthView;
     private TankView activeTankView;
     private TankModel activeTankModel;
     private ProjectileView projectileView;
@@ -51,10 +52,10 @@ public class Environment {
     private Slider AngleSlider;
     private AnchorPane AnchorController;
 
-    public Environment(Group terrainGroup, Group tankGroup, Label tankHealth,
-                       Label fuel, Label angle, Label shotIntensity,
-                       Slider shotSlider, Slider angleSlider,
-                       AnchorPane anchorController){
+    public Environment(Group terrainGroup, Group tankGroup, Group healthGroup,
+                       Label tankHealth, Label fuel, Label angle,
+                       Label shotIntensity, Slider shotSlider,
+                       Slider angleSlider, AnchorPane anchorController){
         this.TankHealth = tankHealth;
         this.Fuel = fuel;
         this.Angle = angle;
@@ -64,6 +65,7 @@ public class Environment {
         this.AnchorController = anchorController;
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
+        this.projectileExploded = true;
 
         this.terrainModel = new TerrainModel();
         for (Node node : terrainGroup.getChildren()) {
@@ -87,7 +89,8 @@ public class Environment {
             tankView.update();
 
 
-            tankModel.setPositionByX((int) (39 + (team + 1) * (randomFactor) * 580));
+            tankModel.setPositionByX
+                    ((int) (39 + (team * 500) + (randomFactor) * 600));
 
 
             tankView.getBody().setLayoutX(tankModel.getX());
@@ -104,6 +107,12 @@ public class Environment {
             team++;
         }
         this.activeTankIndex = 1;
+
+        for (Node node : healthGroup.getChildren()) {
+            this.healthView = (HealthView) node;
+            this.healthView.setTankModels(this.tankModels);
+            this.healthView.update();
+        }
 
         ShotSlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
@@ -126,7 +135,8 @@ public class Environment {
 
     public TerrainView getTerrainView() { return this.terrainView; }
 
-    public void setTerrainView(TerrainView newTer) { this.terrainView = newTer; }
+    public void setTerrainView(TerrainView newTer)
+        { this.terrainView = newTer; }
 
     public TankView getActiveTankView() { return this.activeTankView; }
 
@@ -134,7 +144,8 @@ public class Environment {
 
     public ProjectileView getProjectileView() { return this.projectileView; }
 
-    public ProjectileModel getProjectileModel() { return this.projectileModel; }
+    public ProjectileModel getProjectileModel()
+        { return this.projectileModel; }
 
     public List<TankModel> getTankModels() { return this.tankModels;}
 
@@ -221,11 +232,16 @@ public class Environment {
         this.Angle.setText(angleString);
         this.AngleSlider.setValue(angle);
     }
-
+    /*
     public void updateHealthDisplay() {
         double health = this.activeTankModel.getHealth();
         String healthString = String.format("Health: %s", (Double.toString(health)));
         this.TankHealth.setText(healthString);
+    }
+    */
+
+    public void updateHealthDisplay() {
+        this.healthView.update();
     }
 
     public void updateFuelDisplay() {
@@ -235,7 +251,8 @@ public class Environment {
         this.Fuel.setText(fuelString);
     }
 
-    private void updateDisplays() {
+
+    public void updateDisplays() {
         updateIntensityDisplay();
         updateAngleDisplay();
         updateHealthDisplay();
@@ -247,7 +264,6 @@ public class Environment {
     * using this method.
     */
     public void swapTanks() {
-        isGameOver();
         if (this.activeTankIndex == 0) {
             this.activeTankModel = this.tankModels.get(1);
             this.activeTankView = this.tankViews.get(1);
@@ -261,11 +277,13 @@ public class Environment {
     }
 
     private void isGameOver() {
-        if (this.activeTankModel.getHealth()<=0) {
-            try {
-                endGame();
-            } catch (Exception e) {
-                e.printStackTrace();
+        for (TankModel tank : this.tankModels) {
+            if (tank.getHealth() <= 0) {
+                try {
+                    endGame();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -303,6 +321,11 @@ public class Environment {
             this.projectileView.update();
         }
         animateProjectile();
+    }
+
+    /* Returns whether or not the recently created projectile has exploded */
+    public boolean isProjectileExploded() {
+        return this.projectileExploded;
     }
 
     /* Updates the coordinates of the projectile based on the given path
@@ -379,6 +402,8 @@ public class Environment {
             tankView.update();
         }
         this.terrainView.update();
+        isGameOver();
+        swapTanks();
     }
 
 

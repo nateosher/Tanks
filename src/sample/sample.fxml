@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import sample.TerrainView?>
 <?import sample.TankView?>
+<?import sample.HealthView?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -28,10 +29,15 @@
 
     <Slider fx:id="ShotSlider" LayoutX = "600" AnchorPane.topAnchor="50" min="0" max="100" value="50" onMouseClicked="#onMouseReleased"/>
 
-    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: 100"/>
+    <Label fx:id="TankHealth" LayoutX="800" AnchorPane.leftAnchor="775"
+           AnchorPane.topAnchor="10" text="Health"/>
 
     <Group fx:id="TerrainGroup" AnchorPane.bottomAnchor="0">
         <TerrainView/>
+    </Group>
+
+    <Group fx:id="HealthGroup" AnchorPane.topAnchor="30">
+        <HealthView />
     </Group>
 
     <Group fx:id="TankGroup">
