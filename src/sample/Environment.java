@@ -40,21 +40,21 @@ public class Environment {
     private double randomFactor;
     private ProjectileModel projectileModel;
     private Timer timer;
-    private boolean projectileExploded;
+    private boolean projectileExploded = true;
     private Label TankHealth;
     private Label Fuel;
     private Label Angle;
     private Label ShotIntensity;
     private Slider ShotSlider;
+    private Label Winner;
 
-    private Label GameOver;
     private Slider AngleSlider;
     private AnchorPane AnchorController;
 
     public Environment(Group terrainGroup, Group tankGroup, Label tankHealth,
                        Label fuel, Label angle, Label shotIntensity,
                        Slider shotSlider, Slider angleSlider,
-                       AnchorPane anchorController){
+                       AnchorPane anchorController, Label Winner){
         this.TankHealth = tankHealth;
         this.Fuel = fuel;
         this.Angle = angle;
@@ -64,6 +64,7 @@ public class Environment {
         this.AnchorController = anchorController;
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
+        this.Winner = Winner;
 
         this.terrainModel = new TerrainModel();
         for (Node node : terrainGroup.getChildren()) {
@@ -214,6 +215,7 @@ public class Environment {
         int angle = this.activeTankModel.getNozzleAngle();
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
         this.Angle.setText(angleString);
+        this.AngleSlider.setValue((double) angle);
     }
 
     public void updateHealthDisplay() {
@@ -241,7 +243,6 @@ public class Environment {
     * using this method.
     */
     public void swapTanks() {
-        isGameOver();
         if (this.activeTankIndex == 0) {
             this.activeTankModel = this.tankModels.get(1);
             this.activeTankView = this.tankViews.get(1);
@@ -278,6 +279,14 @@ public class Environment {
         stage.setTitle("Tanks?");
         stage.setResizable(false);
         stage.setScene(new Scene(root, 500, 500));
+        String color;
+        if (this.activeTankIndex == 0) {
+            color = "Orange";
+        } else {
+            color = "Purple";
+        }
+        String winnerString = String.format("%s wins!", color);
+        this.Winner.setText(winnerString);
         stage.show();
         root.requestFocus();
     }
@@ -373,6 +382,8 @@ public class Environment {
             tankView.update();
         }
         this.terrainView.update();
+        updateHealthDisplay();
+        isGameOver();
     }
 
 

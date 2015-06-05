@@ -12,6 +12,12 @@
         </font>
     </Label>
 
+    <Label fx:id="Winner" LayoutX="150" AnchorPane.topAnchor="225" text="Winner">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+
     <Button fx:id="PlayAgain" LayoutX="220" AnchorPane.topAnchor = "300" text="Play again?" onAction="#onStartButton" />
 
 

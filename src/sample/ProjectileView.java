@@ -53,8 +53,8 @@ public class ProjectileView extends Group {
     */
     public void destroyProjectile() {
         this.projectileColor = BACKGROUND_COLOR;
-        this.projectileBody.setCenterX(0);
-        this.projectileBody.setCenterY(0);
+        this.projectileBody.setCenterX(-100);
+        this.projectileBody.setCenterY(-100);
         this.projectileBody.setFill(this.projectileColor);
         this.getChildren().clear();
     }
