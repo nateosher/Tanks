@@ -286,7 +286,7 @@ public class Environment {
             color = "Purple";
         }
         String winnerString = String.format("%s wins!", color);
-        this.Winner.setText(winnerString);
+        //this.Winner.setText(winnerString);
         stage.show();
         root.requestFocus();
     }
