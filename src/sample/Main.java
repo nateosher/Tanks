@@ -16,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception{
         this.stage = primaryStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
-        Parent root = (Parent)loader.load();
+        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        Parent root = (Parent)menuLoader.load();
         root.setFocusTraversable(true);
         this.menu = new Scene(root, 500, 500);
 
