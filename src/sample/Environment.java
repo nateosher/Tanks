@@ -80,13 +80,16 @@ public class Environment {
         for (Node node : tankGroup.getChildren()) {
             TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
+            tankModel.setNozzleAngle(team * 180);
 
             TankView tankView = (TankView) node;
             tankView.setTankModel(tankModel);
+            tankView.updateNozzle();
             tankView.update();
 
 
             tankModel.setPositionByX((int) (39 + (team + 1) * (randomFactor) * 580));
+
 
             tankView.getBody().setLayoutX(tankModel.getX());
             tankView.getBody().setLayoutY(tankModel.getY());
@@ -204,18 +207,20 @@ public class Environment {
         }
     }
 
+
     public void updateIntensityDisplay() {
-        int shotIntensity = (int) this.ShotSlider.getValue();
+        int shotIntensity = (int) this.activeTankModel.getShotIntensity();
         String shotIntensityString = String.format("Shot Intensity: %s",
                 Integer.toString(shotIntensity));
         this.ShotIntensity.setText(shotIntensityString);
+        this.ShotSlider.setValue(shotIntensity);
     }
 
     public void updateAngleDisplay() {
         int angle = this.activeTankModel.getNozzleAngle();
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
         this.Angle.setText(angleString);
-        this.AngleSlider.setValue((double) angle);
+        this.AngleSlider.setValue(angle);
     }
 
     public void updateHealthDisplay() {
@@ -286,7 +291,7 @@ public class Environment {
             color = "Purple";
         }
         String winnerString = String.format("%s wins!", color);
-        //this.Winner.setText(winnerString);
+        this.Winner.setText(winnerString);
         stage.show();
         root.requestFocus();
     }
@@ -385,9 +390,4 @@ public class Environment {
         updateHealthDisplay();
         isGameOver();
     }
-
-
-
-
-
 }

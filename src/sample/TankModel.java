@@ -34,7 +34,6 @@ public class TankModel {
     final Color DEFAULT_BORDER = Color.BLACK;
     final int DEFAULT_X = 0;
     final int DEFAULT_Y = 0;
-    final int DEFAULT_MOVE = 5;
     final int DEFAULT_POWER = 50;
     final int DEFAULT_FUEL = 100;
     final int DEFAULT_HEALTH = 100;
@@ -54,11 +53,12 @@ public class TankModel {
         this.nozzleYCor = DEFAULT_Y;
         this.nozzleLength = 20;
         this.nozzleHeight = 3;
-        this.nozzleAngle = 0;
+        this.nozzleAngle = 180;
         this.fuel = DEFAULT_FUEL;
     }
 
-    public void setTerrainModel(TerrainModel newTerrainModel) { this.terrainModel = newTerrainModel; }
+    public void setTerrainModel(TerrainModel newTerrainModel)
+        { this.terrainModel = newTerrainModel; }
 
     public int getPower() {
         return this.power;
@@ -90,6 +90,7 @@ public class TankModel {
 
     public void setNozzleAngle(int newAn) { this.nozzleAngle = newAn; }
 
+    /* Places the tank on top of the terrain given an x coordinate */
     public void setPositionByX (int newX) {
         this.xCor = newX;
         this.yCor = this.terrainModel.getYPos(this.xCor + 15) - 15; }
@@ -104,7 +105,8 @@ public class TankModel {
 
     public int getFuel() {return this.fuel;}
 
-    public void setShotIntensity(int shotIntensity) { this.shotIntensity = shotIntensity;}
+    public void setShotIntensity(int shotIntensity)
+        { this.shotIntensity = shotIntensity;}
 
     public int getShotIntensity() { return this.shotIntensity;}
 

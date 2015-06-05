@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:controller="sample.Main"
+<AnchorPane fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
 
     <Label fx:id="Title" LayoutX="150" AnchorPane.topAnchor="150" text="GAME OVER" >
@@ -17,8 +17,6 @@
             <Font size="24.0"/>
         </font>
     </Label>
-
-    <Button fx:id="PlayAgain" LayoutX="220" AnchorPane.topAnchor = "300" text="Play again?" onAction="#onStartButton" />
 
 
 </AnchorPane>

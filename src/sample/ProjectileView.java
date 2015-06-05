@@ -14,7 +14,7 @@ public class ProjectileView extends Group {
     private Color projectileColor;
 
     final Color DEFAULT_COLOR = Color.BLACK;
-    final Color BACKGROUND_COLOR = Color.WHITE;
+    final Color HIDDEN_COLOR = Color.DARKGREEN;
 
     public ProjectileView () {
         this.projectileColor = DEFAULT_COLOR;
@@ -52,9 +52,9 @@ public class ProjectileView extends Group {
     * projectile from the screen.
     */
     public void destroyProjectile() {
-        this.projectileColor = BACKGROUND_COLOR;
-        this.projectileBody.setCenterX(-100);
-        this.projectileBody.setCenterY(-100);
+        this.projectileColor = HIDDEN_COLOR;
+        this.projectileBody.setCenterX(1199);
+        this.projectileBody.setCenterY(799);
         this.projectileBody.setFill(this.projectileColor);
         this.getChildren().clear();
     }

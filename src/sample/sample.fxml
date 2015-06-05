@@ -20,9 +20,9 @@
 
     <Label fx:id="Fuel" LayoutX="200" AnchorPane.topAnchor="15" text="Fuel Remaining: 100"/>
 
-    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: 0"/>
+    <Label fx:id="Angle" LayoutX="400" AnchorPane.topAnchor="15" text="Angle: 180"/>
 
-    <Slider fx:id="AngleSlider" LayoutX = "400" AnchorPane.topAnchor="50" min="0" max="180" value="0" onMouseClicked="#onMouseReleased" />
+    <Slider fx:id="AngleSlider" LayoutX = "400" AnchorPane.topAnchor="50" min="0" max="180" value="180" onMouseClicked="#onMouseReleased" />
 
     <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: 50" />
 
