@@ -12,11 +12,12 @@
 <AnchorPane fx:controller="sample.Main"
             xmlns:fx="http://javafx.com/fxml">
 
-    <Label fx:id="Title" LayoutX="190" AnchorPane.topAnchor="200" text="TANKS?" >
+    <Label fx:id="Title" LayoutX="190" AnchorPane.topAnchor="150" text="TANKS?" >
         <font>
             <Font size="32.0"/>
         </font>
     </Label>
+
 
     <Button fx:id="Start" LayoutX="220" AnchorPane.topAnchor = "300" text="Tanks!" onAction="#onStartButton" />
 

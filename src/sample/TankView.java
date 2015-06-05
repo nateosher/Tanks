@@ -52,7 +52,10 @@ public class TankView extends Group{
 
     public Rectangle getNozzle() { return this.tankNozzle; }
 
-    public void updateNozzle() {
+    /* Creates a new nozzle that is rotated as according to the value stored
+     * in the tank model
+     */
+     public void updateNozzle() {
         this.tankNozzle = new Rectangle(
                 this.tank.getNozzleLength(),
                 this.tank.getNozzleHeight());

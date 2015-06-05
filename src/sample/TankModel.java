@@ -145,8 +145,14 @@ public class TankModel {
     }
 
     /*
-    * Drops the tank when the terrain sinks.
+    * Updates the health of a tank if it is hit by a projectile. This is called
+    * whenever a tank is hit.
     */
+    private void loseHealth(int damage) {
+        this.health -= damage;
+    }
+
+    /* Drops the tank when the terrain sinks. */
     private void drop() {
         int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
         this.setY(droppedY);
