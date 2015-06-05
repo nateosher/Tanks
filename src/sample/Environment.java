@@ -284,14 +284,6 @@ public class Environment {
         stage.setTitle("Tanks?");
         stage.setResizable(false);
         stage.setScene(new Scene(root, 500, 500));
-        String color;
-        if (this.activeTankIndex == 0) {
-            color = "Orange";
-        } else {
-            color = "Purple";
-        }
-        String winnerString = String.format("%s wins!", color);
-        this.Winner.setText(winnerString);
         stage.show();
         root.requestFocus();
     }
