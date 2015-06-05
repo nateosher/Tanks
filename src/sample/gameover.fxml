@@ -12,13 +12,14 @@
         </font>
     </Label>
 
-    <Label fx:id="Winner" LayoutX="150" AnchorPane.topAnchor="200">
+    <Text fx:id="Winner" LayoutX="50" AnchorPane.topAnchor="200" wrappingWidth="400" text="'One is left with the horrible feeling now that war settles nothing; that to win a war is as disastrous as to lose one.' - Agatha Christie">
         <font>
-                <Font size="20"/>
+                <Font size="17.345"/>
         </font>
-    </Label>
+    </Text>
 
     <Button fx:id="PlayAgain" LayoutX="220" AnchorPane.topAnchor = "300" text="Play again?" onAction="#onStartButton" />
 
+    <Button fx:id="Quit" LayoutX="220" AnchorPane.topAnchor="330" text="Quit Game" onAction="#onQuitButton"/>
 
 </AnchorPane>

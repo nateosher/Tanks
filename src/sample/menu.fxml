@@ -18,6 +18,20 @@
         </font>
     </Label>
 
+    <Label fx:id="Introduction" LayoutX="100" AnchorPane.topAnchor="200"
+           text="Command your tank and destroy your opponent!"/>
+
+    <Label fx:id="InstructionsOne" LayoutX="100" AnchorPane.topAnchor="220"
+           text="Move with the left/right arrow keys."/>
+
+    <Label fx:id="InstructionsTwo" LayoutX="100" AnchorPane.topAnchor="240"
+           text="Change your angle with the up/down keys or the angle slider."/>
+
+    <Label fx:id="InstructionsThree" LayoutX="100" AnchorPane.topAnchor="260"
+           text="Increase and decrease your shot intensity with the slider."/>
+
+    <Label fx:id="InstructionsFour" LayoutX="100" AnchorPane.topAnchor="280"
+           text="Press F or click Fire! to launch a projectile."/>
 
     <Button fx:id="Start" LayoutX="220" AnchorPane.topAnchor = "300" text="Tanks!" onAction="#onStartButton" />
 

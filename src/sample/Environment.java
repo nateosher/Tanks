@@ -385,7 +385,6 @@ public class Environment {
                             (tank.getY()+tank.getHeight()) -
                                     this.projectileModel.getPosY(), 2) +
                             Math.pow(tank.getX()+tank.getWidth()/2 - this.projectileModel.getPosX(), 2));
-            System.out.println("Tank is " + distFromProjectile + " away");
             if (distFromProjectile < this.projectileModel.getBlastRadius()) {
                 tank.takeDamage(this.projectileModel.getDamage((int) distFromProjectile));
             }

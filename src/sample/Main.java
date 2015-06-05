@@ -33,6 +33,10 @@ public class Main extends Application {
         startGame();
     }
 
+    public void onQuitButton() throws Exception {
+        System.exit(0);
+    }
+
     /* Creates a new window and sets up a game of tanks */
     public void startGame() throws Exception {
         this.stage = new Stage();
