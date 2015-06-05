@@ -1,12 +1,15 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.util.*;
@@ -19,6 +22,8 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label ShotIntensity;
     @FXML private Slider ShotSlider;
     @FXML private Label GameOver;
+    @FXML private Slider AngleSlider;
+    @FXML private AnchorPane AnchorController;
 
     private Environment environment;
 
@@ -35,11 +40,13 @@ public class Controller implements EventHandler<KeyEvent> {
     * and draws them in those positions
     */
     public void initialize() {
-        this.environment = new Environment(this.TerrainGroup, this.TankGroup);
-        this.environment.updateAngleDisplay(this.Angle);
+        this.environment = new Environment(this.TerrainGroup, this.TankGroup,
+                this.TankHealth, this.Fuel, this.Angle, this.ShotIntensity,
+                this.ShotSlider, this.AngleSlider, this.AnchorController);
+        this.environment.updateAngleDisplay();
         this.environment.updateHealthDisplay(this.TankHealth);
-        this.environment.updateFuelDisplay(this.Fuel);
-        this.environment.updateIntensityDisplay(this.ShotSlider, this.ShotIntensity);
+        this.environment.updateFuelDisplay();
+        this.environment.updateIntensityDisplay();
     }
 
     @Override
@@ -49,39 +56,44 @@ public class Controller implements EventHandler<KeyEvent> {
                 && this.environment.getActiveTankModel().getFuel()>0) {
             this.environment.getActiveTankModel().moveLeft();
             this.environment.getActiveTankView().update();
-            this.environment.updateFuelDisplay(this.Fuel);
+            this.environment.updateFuelDisplay();
             keyEvent.consume();
         } else if ((code == KeyCode.RIGHT || code == KeyCode.D)
                 && this.environment.getActiveTankModel().getFuel()>0) {
             this.environment.getActiveTankModel().moveRight();
             this.environment.getActiveTankView().update();
-            this.environment.updateFuelDisplay(this.Fuel);
+            this.environment.updateFuelDisplay();
             keyEvent.consume();
         } else if (code == KeyCode.F) {
-            this.environment.shootProjectile(this.ShotSlider, this.ProjectileGroup);
+            this.environment.shootProjectile(this.ProjectileGroup);
             this.environment.swapTanks();
-            this.environment.updateAngleDisplay(this.Angle);
+            this.environment.updateAngleDisplay();
             this.environment.updateHealthDisplay(this.TankHealth);
-            this.environment.updateFuelDisplay(this.Fuel);
+            this.environment.updateFuelDisplay();
             keyEvent.consume();
         } else if (code == KeyCode.UP || code == KeyCode.W){
             this.environment.increaseNozzleAngle();
-            this.environment.updateAngleDisplay(this.Angle);
+            this.environment.updateAngleDisplay();
             keyEvent.consume();
         } else if (code == KeyCode.DOWN || code == KeyCode.S){
             this.environment.decreaseNozzleAngle();
-            this.environment.updateAngleDisplay(this.Angle);
+            this.environment.updateAngleDisplay();
             keyEvent.consume();
         }
-        this.environment.updateIntensityDisplay(this.ShotSlider, this.ShotIntensity);
+        this.environment.updateIntensityDisplay();
     }
 
 
     public void onFireButton() {
-        this.environment.shootProjectile(this.ShotSlider, this.ProjectileGroup);
+        this.environment.shootProjectile(this.ProjectileGroup);
         this.environment.updateHealthDisplay(this.TankHealth);
         this.environment.swapTanks();
     }
+
+    public void onMouseReleased() {
+        this.environment.getAnchorController().requestFocus();
+    }
+
 
 
 }

@@ -5,6 +5,8 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -14,6 +16,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import sun.plugin.javascript.navig.Anchor;
+
 import java.util.*;
 
 public class Environment {
@@ -31,23 +36,41 @@ public class Environment {
     private ProjectileModel projectileModel;
     private Timer timer;
     private boolean projectileExploded;
+    private Label TankHealth;
+    private Label Fuel;
+    private Label Angle;
+    private Label ShotIntensity;
+    private Slider ShotSlider;
+    private Label GameOver;
+    private Slider AngleSlider;
+    private AnchorPane AnchorController;
 
-    public Environment(Group terrainGroup, Group tankGroup){
+    public Environment(Group terrainGroup, Group tankGroup, Label tankHealth,
+                       Label fuel, Label angle, Label shotIntensity,
+                       Slider shotSlider, Slider angleSlider,
+                       AnchorPane anchorController){
+        this.TankHealth = tankHealth;
+        this.Fuel = fuel;
+        this.Angle = angle;
+        this.ShotIntensity = shotIntensity;
+        this.ShotSlider = shotSlider;
+        this.AngleSlider = angleSlider;
+        this.AnchorController = anchorController;
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
+
         this.terrainModel = new TerrainModel();
+        for (Node node : terrainGroup.getChildren()) {
+            this.terrainView = (TerrainView) node;
+            this.terrainView.setTerrainModel(this.terrainModel);
+            this.terrainView.update();
+        }
+
         this.tankModels = new ArrayList<TankModel>();
         this.tankViews = new ArrayList<TankView>();
-        for (Node node : terrainGroup.getChildren()) {
-            // System.out.println("TerrainGroup node exists");
-            this.setTerrainView((TerrainView) node);
-            this.getTerrainView().setTerrainModel(this.getTerrainModel());
-            this.getTerrainView().update();
-        }
+
         int team = 0;
         for (Node node : tankGroup.getChildren()) {
-            // String testLine = String.format("Tank %s exists", (Integer.toString(team)));
-            // System.out.println(testLine);
             TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
 
@@ -71,8 +94,23 @@ public class Environment {
             this.activeTankView = tankView;
             team++;
         }
-
         this.activeTankIndex = 1;
+
+        ShotSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                setTankIntensity();
+                updateIntensityDisplay();
+            }
+        });
+
+        AngleSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                setNozzleAngle();
+                updateAngleDisplay();
+            }
+        });
     }
 
     public TerrainModel getTerrainModel() { return this.terrainModel; }
@@ -100,6 +138,22 @@ public class Environment {
     public Timer getTimer() { return this.timer; }
 
     public Boolean getProjectileExploded() { return this.projectileExploded; }
+
+    public AnchorPane getAnchorController() { return this.AnchorController; }
+
+    private void setTankIntensity() {
+        this.activeTankModel.setShotIntensity((int) ShotSlider.getValue());
+    }
+
+
+    /*
+    * Allows the angle slider to change the angle of a nozzle
+     */
+    private void setNozzleAngle() {
+        this.activeTankModel.setNozzleAngle((int) this.AngleSlider.getValue());
+        this.activeTankView.updateNozzle();
+        this.activeTankView.update();
+    }
 
     /*
      * Used in response to UP key press. This method increases the angle of the
@@ -143,17 +197,17 @@ public class Environment {
         }
     }
 
-    public void updateIntensityDisplay(Slider slider, Label label) {
-        int shotIntensity = (int) slider.getValue();
+    public void updateIntensityDisplay() {
+        int shotIntensity = (int) this.ShotSlider.getValue();
         String shotIntensityString = String.format("Shot Intensity: %s",
                 Integer.toString(shotIntensity));
-        label.setText(shotIntensityString);
+        this.ShotIntensity.setText(shotIntensityString);
     }
 
-    public void updateAngleDisplay(Label label) {
+    public void updateAngleDisplay() {
         int angle = this.activeTankModel.getNozzleAngle();
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
-        label.setText(angleString);
+        this.Angle.setText(angleString);
     }
 
     public void updateHealthDisplay(Label label) {
@@ -162,11 +216,11 @@ public class Environment {
         label.setText(healthString);
     }
 
-    public void updateFuelDisplay(Label label) {
+    public void updateFuelDisplay() {
         this.activeTankModel.getFuel();
         int fuel = this.activeTankModel.getFuel();
         String fuelString = String.format("Fuel Remaining: %s", (fuel));
-        label.setText(fuelString);
+        this.Fuel.setText(fuelString);
     }
 
     /*
@@ -197,12 +251,12 @@ public class Environment {
     * fired and animates it based on the angle and initial power of the
     * shot
     */
-    public void shootProjectile(Slider slider, Group projectileGroup) {
+    public void shootProjectile(Group projectileGroup) {
         System.out.println("pew!");
         this.projectileExploded= false;
         for (Node node : projectileGroup.getChildren()) {
             this.projectileModel = new ProjectileModel(this.activeTankModel.getX(),this.activeTankModel.getY(),
-                    this.activeTankModel.getNozzleAngle(), slider.getValue());
+                    this.activeTankModel.getNozzleAngle(), this.ShotSlider.getValue());
             this.projectileModel.setTerrainModel(this.terrainModel);
             this.projectileView = (ProjectileView) node;
             this.projectileView.createNewProjectile(this.projectileModel);

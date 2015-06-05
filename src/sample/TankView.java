@@ -52,6 +52,15 @@ public class TankView extends Group{
 
     public Rectangle getNozzle() { return this.tankNozzle; }
 
+    public void updateNozzle() {
+        this.tankNozzle = new Rectangle(
+                this.tank.getNozzleLength(),
+                this.tank.getNozzleHeight());
+        Rotate rotation = new Rotate(-this.tank.getNozzleAngle(), this.tankNozzle.getLayoutX(), this.
+                tankNozzle.getLayoutY());
+        this.tankNozzle.getTransforms().add(rotation);
+    }
+
     public Rotate getrPos(){ return this.rPos; }
 
     public Rotate getrNeg(){ return this.rNeg; }
