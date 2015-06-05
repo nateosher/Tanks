@@ -51,6 +51,7 @@ public class Environment {
     private Slider AngleSlider;
     private AnchorPane AnchorController;
 
+    /* Creates the terrain of the environment and adds two tanks to it */
     public Environment(Group terrainGroup, Group tankGroup, Label tankHealth,
                        Label fuel, Label angle, Label shotIntensity,
                        Slider shotSlider, Slider angleSlider,
@@ -154,10 +155,7 @@ public class Environment {
         this.activeTankModel.setShotIntensity((int) ShotSlider.getValue());
     }
 
-
-    /*
-    * Allows the angle slider to change the angle of a nozzle
-     */
+     /* Allows the angle slider to change the angle of a nozzle */
     private void setNozzleAngle() {
         this.activeTankModel.setNozzleAngle((int) this.AngleSlider.getValue());
         this.activeTankView.updateNozzle();
@@ -206,7 +204,7 @@ public class Environment {
         }
     }
 
-
+    /* Updates the display text of the shot intensity label */
     public void updateIntensityDisplay() {
         int shotIntensity = (int) this.activeTankModel.getShotIntensity();
         String shotIntensityString = String.format("Shot Intensity: %s",
@@ -215,6 +213,7 @@ public class Environment {
         this.ShotSlider.setValue(shotIntensity);
     }
 
+    /* Updates the display text of the angle label */
     public void updateAngleDisplay() {
         int angle = this.activeTankModel.getNozzleAngle();
         String angleString = String.format("Angle: %s", (Integer.toString(angle)));
@@ -222,12 +221,14 @@ public class Environment {
         this.AngleSlider.setValue(angle);
     }
 
+    /* Updates the text of the health label for the current tank */
     public void updateHealthDisplay() {
         double health = this.activeTankModel.getHealth();
         String healthString = String.format("Health: %s", (Double.toString(health)));
         this.TankHealth.setText(healthString);
     }
 
+    /* Updates the text of the fuel label for the current tank */
     public void updateFuelDisplay() {
         this.activeTankModel.getFuel();
         int fuel = this.activeTankModel.getFuel();
@@ -235,6 +236,7 @@ public class Environment {
         this.Fuel.setText(fuelString);
     }
 
+    /* Calls all of the display update methods */
     private void updateDisplays() {
         updateIntensityDisplay();
         updateAngleDisplay();

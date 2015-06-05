@@ -12,6 +12,7 @@ public class Main extends Application {
     private Scene menu;
     private Scene map;
 
+    /* Opens the main menu of the game */
     @Override
     public void start(final Stage primaryStage) throws Exception{
         this.stage = primaryStage;
@@ -27,6 +28,7 @@ public class Main extends Application {
         root.requestFocus();
     }
 
+    /* Called when the user clicks the start button */
     public void onStartButton() throws Exception {
         startGame();
     }
@@ -35,7 +37,8 @@ public class Main extends Application {
     public void startGame() throws Exception {
         this.stage = new Stage();
         this.stage.setTitle("Tanks?");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("sample.fxml"));
         Parent root = (Parent)loader.load();
         root.setFocusTraversable(true);
         Controller controller = loader.getController();

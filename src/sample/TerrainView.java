@@ -44,6 +44,8 @@ public class TerrainView extends Group {
         return this.terrainColor;
     }
 
+
+    /* Draws the terrain to the screen */
     public void update() {
         this.getChildren().clear();
         for (int i=0; i<this.width; i++) {

@@ -76,14 +76,18 @@ public class ProjectileModel {
         while (projectileIsUnderground && i<1200) {
             undergroundX = (int) (this.pos_x+i*xToYRatio);
             i++;
+            //Returns pos_x if path is traced off screen
             if(undergroundX<0 || undergroundX>=1200) {
                 return this.pos_x;
             }
+
             if((this.pos_y+i*yToXRatio) > this.terrainModel.getYPos(
                     undergroundX)){
                 projectileIsUnderground=false;
             }
         }
+        // Returns pos_x if guess is not within a reasonable bound of where
+        //   the projectile first registered as below ground
         if (Math.abs(undergroundX-this.pos_x) > this.vel_x) {
             return this.pos_x;
         }
@@ -91,7 +95,7 @@ public class ProjectileModel {
     }
 
     /*
-    * Calculates the damage a tank takes based on it's distance from a hit.
+    * Calculates the damage a tank takes based on its distance from a hit.
     * This method is called whenever a tank is within the blast radius.
      */
     public double getDamage(int distance) {

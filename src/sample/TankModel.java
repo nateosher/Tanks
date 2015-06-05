@@ -155,9 +155,7 @@ public class TankModel {
         this.health -= damage;
     }
 
-    /*
-    * Drops the tank when the terrain sinks.
-    */
+    /* Drops the tank when the terrain sinks. */
     private void drop() {
         int droppedY = this.terrainModel.getYPos(this.xCor + 15) - 15;
         this.setY(droppedY);
