@@ -1,10 +1,6 @@
 package sample;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,7 +8,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import java.util.*;
 
 
 public class Controller implements EventHandler<KeyEvent> {
@@ -36,9 +31,9 @@ public class Controller implements EventHandler<KeyEvent> {
     public Controller() {}
 
     /*
-    * Draws the actual terrain, sets the positions of the tanks,
-    * and draws them in those positions
-    */
+     * Instantiates an instance of the Environment class, which contains all of
+     * the relevant models and views for the terrain/tanks/projectiles.
+     */
     public void initialize() {
         this.environment = new Environment(this.TerrainGroup, this.TankGroup,
                 this.TankHealth, this.Fuel, this.Angle, this.ShotIntensity,
@@ -50,6 +45,13 @@ public class Controller implements EventHandler<KeyEvent> {
         this.environment.updateIntensityDisplay();
     }
 
+    /* Handles the key inputs, which work as follows:
+     * LEFT ARROW KEY OR A: Moves tank left
+     * RIGHT ARROW KEY OR D: Moves tank right
+     * UP ARROW KEY OR W: Increases angle of nozzle
+     * DOWN ARROW KEY OR S: Decreases angle of nozzle
+     * F KEY: Fires a projectile
+     */
     @Override
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
@@ -85,7 +87,9 @@ public class Controller implements EventHandler<KeyEvent> {
         this.environment.updateIntensityDisplay();
     }
 
-
+    /* When the fire button is clicked, causes the tank to fire a projectile.
+     * Same as pressing the F-key.
+     */
     public void onFireButton() {
         if (this.environment.getProjectileExploded()) {
             this.environment.shootProjectile(this.ProjectileGroup);
@@ -94,6 +98,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
     }
 
+    /* Method to prevent the sliders from stealing the focus */
     public void onMouseReleased() {
         this.environment.getAnchorController().requestFocus();
     }
