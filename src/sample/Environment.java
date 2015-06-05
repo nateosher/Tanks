@@ -79,13 +79,16 @@ public class Environment {
         for (Node node : tankGroup.getChildren()) {
             TankModel tankModel = new TankModel(team);
             tankModel.setTerrainModel(this.terrainModel);
+            tankModel.setNozzleAngle(team*180);
 
             TankView tankView = (TankView) node;
             tankView.setTankModel(tankModel);
+            tankView.updateNozzle();
             tankView.update();
 
 
             tankModel.setPositionByX((int) (39 + (team + 1) * (randomFactor) * 580));
+
 
             tankView.getBody().setLayoutX(tankModel.getX());
             tankView.getBody().setLayoutY(tankModel.getY());

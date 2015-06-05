@@ -60,7 +60,7 @@ public class ProjectileModel {
 
     public int findImpactPointX() {
         double xToYRatio = -(this.vel_x/this.vel_y);
-        double yToXRatio = -(this.vel_y/this.vel_x);
+        double yToXRatio = -(this.vel_y/Math.abs(this.vel_x));
 
         int i = 0;
         boolean projectileIsUnderground = true;
@@ -68,10 +68,16 @@ public class ProjectileModel {
         while (projectileIsUnderground && i<1200) {
             undergroundX = (int) (this.pos_x+i*xToYRatio);
             i++;
+            if(undergroundX<0 || undergroundX>=1200) {
+                return this.pos_x;
+            }
             if((this.pos_y+i*yToXRatio) > this.terrainModel.getYPos(
                     undergroundX)){
                 projectileIsUnderground=false;
             }
+        }
+        if (Math.abs(undergroundX-this.pos_x) > this.vel_x) {
+            return this.pos_x;
         }
         return undergroundX;
     }
