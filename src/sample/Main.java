@@ -13,7 +13,7 @@ public class Main extends Application {
     private Scene map;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(final Stage primaryStage) throws Exception{
         this.stage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
         Parent root = (Parent)loader.load();
@@ -35,7 +35,7 @@ public class Main extends Application {
     public void startGame() throws Exception {
         this.stage = new Stage();
         this.stage.setTitle("Tanks?");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("map.fxml"));
         Parent root = (Parent)loader.load();
         root.setFocusTraversable(true);
         Controller controller = loader.getController();

@@ -24,7 +24,7 @@
 
     <Label fx:id="ShotIntensity" LayoutX="600" AnchorPane.topAnchor="15" text="Shot Intensity: "/>
 
-    <Slider fx:id="ShotSlider" LayoutX="600" AnchorPane.topAnchor="50" min="0" max="600" value="100"/>
+    <Slider fx:id="ShotSlider" LayoutX="600" AnchorPane.topAnchor="50" min="0" max="100" value="50"/>
 
     <Label fx:id="TankHealth" LayoutX="800" AnchorPane.topAnchor="15" text="Health: "/>
 
@@ -36,12 +36,10 @@
     <Group fx:id="TankGroup">
         <TankView />
         <TankView />
-
     </Group>
 
     <Group fx:id="ProjectileGroup">
         <ProjectileView />
-
     </Group>
 
 </AnchorPane>
