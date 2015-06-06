@@ -54,4 +54,13 @@
     <Label fx:id="Instructions" LayoutX = "150" AnchorPane.topAnchor="70"
            text = "Left/Right arrows move your tank, Up/Down changes the angle. Press Fire! or F to fire a projectile, and move the slider to change shot intensity!"/>
 
+    <Label fx:id="EndQuote" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="300" visible="false"
+           text = "'One is left with the horrible feeling now that war settles nothing; that to win a war is as disastrous as to lose one.' - Agatha Christie"/>
+
+    <Button fx:id="PlayAgain" AnchorPane.leftAnchor="465" AnchorPane.topAnchor = "330"
+            visible="false" text="Play again?" onAction="#onStartButton" />
+
+    <Button fx:id="QuitButton" AnchorPane.leftAnchor="665" AnchorPane.topAnchor = "330"
+            visible="false" text="Quit Game" onAction="#onQuitButton"/>
+
 </AnchorPane>

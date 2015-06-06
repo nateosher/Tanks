@@ -14,7 +14,6 @@ public class ProjectileView extends Group {
     private Color projectileColor;
 
     final Color DEFAULT_COLOR = Color.BLACK;
-    final Color HIDDEN_COLOR_TERRAIN = Color.DARKGREEN;
     final Color HIDDEN_COLOR_SKY = Color.WHITE;
 
     public ProjectileView () {

@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -42,22 +43,24 @@ public class Environment {
     private ProjectileModel projectileModel;
     private Timer timer;
     private boolean projectileExploded;
+    private boolean gameRunning;
     private Label TankHealth;
     private Label Fuel;
     private Label Angle;
     private Label ShotIntensity;
     private Slider ShotSlider;
-
-    private Label GameOver;
+    private Label EndQuote;
+    private Button PlayAgain;
+    private Button QuitButton;
     private Slider AngleSlider;
     private AnchorPane AnchorController;
 
     public Environment(Group terrainGroup, Group tankGroup, Group healthGroup,
                        Label tankHealth, Label fuel, Label angle,
                        Label shotIntensity, Slider shotSlider,
-                       Slider angleSlider, AnchorPane anchorController){
+                       Slider angleSlider, AnchorPane anchorController,
+                       Label endQuote, Button playAgain, Button quitButton){
     /* Creates the terrain of the environment and adds two tanks to it */
-        this.TankHealth = tankHealth;
         this.Fuel = fuel;
         this.Angle = angle;
         this.ShotIntensity = shotIntensity;
@@ -67,6 +70,10 @@ public class Environment {
         this.randomNumberGenerator = new Random();
         this.randomFactor = randomNumberGenerator.nextDouble();
         this.projectileExploded = true;
+        this.gameRunning = true;
+        this.EndQuote = endQuote;
+        this.PlayAgain = playAgain;
+        this.QuitButton = quitButton;
 
         this.terrainModel = new TerrainModel();
         for (Node node : terrainGroup.getChildren()) {
@@ -270,34 +277,33 @@ public class Environment {
         updateDisplays();
     }
 
+    /* Determines if game has ended (one tank has dropped below 1 health) */
     private void isGameOver() {
         for (TankModel tank : this.tankModels) {
             if (tank.getHealth() <= 0) {
-                try {
-                    endGame();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                this.gameRunning = false;
+            }
+        }
+        if(!this.gameRunning) {
+            try {
+                endGame();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
+    public boolean isGameRunning() {
+        return this.gameRunning;
+    }
+
     /*
-    * Ends the current game by displaying a game over menu. Called when isGameOver
-    * is true.
-    *
-    * Code based on answer here: http://stackoverflow.com/questions/17252401/call-other-class-method-from-controller-in-javafx
+    * Ends the current game by displaying a game over quote, as well as a play again or quit option.
     */
     public void endGame() throws Exception {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameover.fxml"));
-        root = (Parent)loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Tanks?");
-        stage.setResizable(false);
-        stage.setScene(new Scene(root, 500, 500));
-        stage.show();
-        root.requestFocus();
+        this.EndQuote.setVisible(true);
+        this.PlayAgain.setVisible(true);
+        this.QuitButton.setVisible(true);
     }
 
     /* Creates and draws a new projectile in the location of the tank that
